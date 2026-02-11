@@ -56,7 +56,7 @@ export default defineType({
       name: 'body',
       title: 'Body',
       description:
-        "This is where you can write the page's content. Including custom blocks like timelines for more a more visual display of information.",
+        "This is where you can write the page's content.",
       of: [
         // Paragraphs
         defineArrayMember({
@@ -78,11 +78,6 @@ export default defineType({
             ],
           },
           styles: [],
-        }),
-        // Custom blocks
-        defineArrayMember({
-          name: 'timeline',
-          type: 'timeline',
         }),
         defineField({
           type: 'image',
@@ -113,7 +108,6 @@ export default defineType({
             }),
           ],
         }),
-        defineField({ type: 'youtube' as any }),
       ],
     }),
   ],

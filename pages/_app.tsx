@@ -1,17 +1,14 @@
-import 'react-lite-youtube-embed/dist/LiteYouTubeEmbed.css'
 import 'styles/index.css'
 
 import { VisualEditing } from '@sanity/visual-editing/next-pages-router'
 import { AppProps } from 'next/app'
 import { IBM_Plex_Mono, Inter, PT_Serif } from 'next/font/google'
-import { lazy, useSyncExternalStore } from 'react'
+import { useSyncExternalStore } from 'react'
 
 export interface SharedPageProps {
   draftMode: boolean
   token: string
 }
-
-const PreviewProvider = lazy(() => import('components/preview/PreviewProvider'))
 
 const mono = IBM_Plex_Mono({
   variable: '--font-mono',
@@ -32,7 +29,7 @@ const serif = PT_Serif({
   weight: ['400', '700'],
 })
 
-const subscribe = () => () => {}
+const subscribe = () => () => { }
 
 export default function App({
   Component,
@@ -60,9 +57,7 @@ export default function App({
       </style>
 
       {draftMode ? (
-        <PreviewProvider token={token}>
-          <Component {...pageProps} />
-        </PreviewProvider>
+        <Component {...pageProps} />
       ) : (
         <Component {...pageProps} />
       )}
