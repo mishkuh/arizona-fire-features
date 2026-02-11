@@ -1,82 +1,80 @@
-import { Page } from 'components/pages/page/Page'
-import PagePreview from 'components/pages/page/PagePreview'
 import { readToken } from 'lib/sanity.api'
 import { getClient } from 'lib/sanity.client'
-import { resolveHref } from 'lib/sanity.links'
-import {
-  homePageTitleQuery,
-  pagePaths,
-  pagesBySlugQuery,
-  settingsQuery,
-} from 'lib/sanity.queries'
-import type { GetStaticProps } from 'next'
-import { PagePayload, SettingsPayload } from 'types'
+import { groq } from 'next-sanity'
+import { GetStaticProps, GetStaticPaths } from 'next'
+import { PortableText } from '@portabletext/react'
+import Link from 'next/link'
 
-import type { SharedPageProps } from './_app'
-
-interface PageProps extends SharedPageProps {
-  page?: PagePayload
-  settings?: SettingsPayload
-  homePageTitle?: string
+interface Page {
+  _id: string
+  title: string
+  body: any[]
 }
 
-interface Query {
-  [key: string]: string
+interface PageProps {
+  page: Page
+  draftMode: boolean
 }
 
-export default function ProjectSlugRoute(props: PageProps) {
-  const { homePageTitle, settings, page, draftMode } = props
-
-  if (draftMode) {
-    return (
-      <PagePreview
-        page={page}
-        settings={settings}
-        homePageTitle={homePageTitle}
-      />
-    )
-  }
-
-  return <Page homePageTitle={homePageTitle} page={page} settings={settings} />
-}
-
-export const getStaticProps: GetStaticProps<PageProps, Query> = async (ctx) => {
-  const { draftMode = false, params = {} } = ctx
-  const client = getClient(draftMode ? { token: readToken } : undefined)
-
-  const [settings, page, homePageTitle] = await Promise.all([
-    client.fetch<SettingsPayload | null>(settingsQuery),
-    client.fetch<PagePayload | null>(pagesBySlugQuery, {
-      slug: params.slug,
-    }),
-    client.fetch<string | null>(homePageTitleQuery),
-  ])
+export default function Page(props: PageProps) {
+  const { page } = props
 
   if (!page) {
-    return {
-      notFound: true,
-      revalidate: 1, // nonexistant slug might be created later
-    }
+    return <div>Page not found</div>
+  }
+
+  return (
+    <div className="container mx-auto p-4">
+      <Link href="/" className="text-blue-500 hover:underline mb-4 block">
+        &larr; Back to Home
+      </Link>
+      <h1 className="text-4xl font-bold mb-6">{page.title}</h1>
+      {page.body && (
+        <div className="prose">
+          <PortableText value={page.body} />
+        </div>
+      )}
+    </div>
+  )
+}
+
+const pageQuery = groq`
+  *[_type == "page" && slug.current == $slug][0] {
+    _id,
+    title,
+    body
+  }
+`
+
+export const getStaticProps: GetStaticProps<PageProps> = async (ctx) => {
+  const { params, draftMode = false } = ctx
+  const client = getClient(draftMode ? { token: readToken } : undefined)
+
+  const page = await client.fetch<Page>(pageQuery, {
+    slug: params?.slug,
+  })
+
+  // If no page found, return notFound: true
+  if (!page) {
+    return { notFound: true }
   }
 
   return {
     props: {
       page,
-      settings: settings ?? {},
-      homePageTitle: homePageTitle ?? undefined,
       draftMode,
-      token: draftMode ? readToken : null,
     },
-    revalidate: 10,
   }
 }
 
-export const getStaticPaths = async () => {
+export const getStaticPaths: GetStaticPaths = async () => {
   const client = getClient()
-  const paths = await client.fetch<string[]>(pagePaths)
+  const paths = await client.fetch<string[]>(
+    groq`*[_type == "page" && defined(slug.current)][].slug.current`
+  )
 
   return {
-    paths: paths?.map((slug) => resolveHref('page', slug)) || [],
-    fallback: true, // check if slug created since last build
+    paths: paths.map((slug) => ({ params: { slug } })),
+    fallback: true,
   }
 }
