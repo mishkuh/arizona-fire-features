@@ -1,36 +1,38 @@
-import 'tailwindcss/tailwind.css'
+import "@radix-ui/themes/styles.css";
+import './globals.css'
+import type { Metadata } from 'next'
+import { VisualEditing } from "next-sanity/visual-editing";
+import { draftMode } from "next/headers";
+import { DisableDraftMode } from "@/components/sanity/DisableDraftMode";
+import { SanityLive } from "@/components/sanity/live";
 
-import { IBM_Plex_Mono, Inter, PT_Serif } from 'next/font/google'
 
-const serif = PT_Serif({
-  variable: '--font-serif',
-  style: ['normal', 'italic'],
-  subsets: ['latin'],
-  weight: ['400', '700'],
-})
-const sans = Inter({
-  variable: '--font-sans',
-  subsets: ['latin'],
-  // @todo: understand why extrabold (800) isn't being respected when explicitly specified in this weight array
-  // weight: ['500', '700', '800'],
-})
-const mono = IBM_Plex_Mono({
-  variable: '--font-mono',
-  subsets: ['latin'],
-  weight: ['500', '700'],
-})
+export const metadata: Metadata = {
+  title: {
+    default: 'Arizona Fire Features',
+    template: '%s | Arizona Fire Features'
+  },
+  description: 'Arizona Fire Features is a family-owned business based in Mesa, Arizona, specializing in the design, fabrication, and installation of high-quality custom fire features for residential properties. With over 20 years of experience, we create unique, handcrafted fire pits, fire tables, and outdoor fireplaces that transform outdoor spaces into stunning gathering areas. Our products are made from durable materials like corten steel, stainless steel, and natural stone, ensuring long-lasting beauty and performance. We serve the entire Phoenix metropolitan area, including Scottsdale, Paradise Valley, Gilbert, Chandler, and Tempe. Contact us today for a free consultation and let us help you create the perfect fire feature for your home or business.',
+  metadataBase: new URL('https://arizonafirefeatures.com'),
+}
 
 export default async function RootLayout({
   children,
-}: {
-  children: React.ReactNode
-}) {
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
-    <html
-      lang="en"
-      className={`${mono.variable} ${sans.variable} ${serif.variable}`}
-    >
-      <body>{children}</body>
+    <html lang="en">
+      <body>
+        {children}
+        <SanityLive />
+        {(await draftMode()).isEnabled && (
+          <>
+            <VisualEditing />
+            <DisableDraftMode />
+          </>
+        )}
+      </body>
     </html>
-  )
+  );
 }
