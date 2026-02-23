@@ -26,8 +26,8 @@ const Home = async () => {
     )
 
     const benefitsList = [
+        'Isokern Fireplaces',
         'Licensed & Insured',
-        'Eco-Friendly Practices',
         'Free Consultations',
         'Satisfaction Guaranteed',
         '20+ Years Experience',
@@ -55,22 +55,37 @@ const Home = async () => {
                         </Heading>
                         <Text
                             asChild
+                            color='orange'
+                            size="6"
+                        >
+                            <motion.text
+                                initial={{ opacity: 0, y: 30 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.6, delay: 0.2 }}
+                            >
+                                <Link href="https://earthcore.com/">
+                                    ISOKERN FIREPLACE SPECIALISTS
+                                </Link>
+                            </motion.text>
+                        </Text>
+                        <Text
+                            asChild
                             size={{ initial: "5", sm: "6" }}
                             color="gray"
                         >
                             <motion.div
                                 initial={{ opacity: 0, y: 30 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.6, delay: 0.2 }}
+                                transition={{ duration: 0.6, delay: 0.4 }}
                             >
-                                Professional fire feature services that bring your vision to life
+                                We specialize in creating premium fireplaces, fire features, and firepits in homes all over The Valley.
                             </motion.div>
                         </Text>
                         <Flex asChild gap="4" direction={{ initial: 'column', sm: 'row' }}>
                             <motion.div
                                 initial={{ opacity: 0, y: 30 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.6, delay: 0.4 }}
+                                transition={{ duration: 0.6, delay: 0.6 }}
                             >
                                 <Button asChild size={{ initial: "3", sm: "4" }} variant="solid" color='gray'>
                                     <Link href="/contact">
