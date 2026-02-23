@@ -56,7 +56,7 @@ export const getAllServicesQuery = groq`
 // TODO: Add featured services
 // *[_type == "service" && _id in ['', '1234', 'abcd']] {
 export const getFeaturedServicesQuery = groq`
-  *[_type == "service" && title in ["Another Service", "Service Title", "Demo service"]] {
+  *[_type == "service"] {
     _id,
     title,
     subtitle,

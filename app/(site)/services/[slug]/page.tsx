@@ -74,26 +74,6 @@ const ServiceDetail = async (
                                     ))}
                                 </Flex>
                             </Flex>
-
-                            <Flex direction="column" gap="2">
-                                <Heading size="5" color="orange" className="mb-4 font-novecento-sans">Gallery</Heading>
-                                {service.gallery && service.gallery.length > 0 ? (
-                                    <Grid columns={{ initial: '1', md: '2' }} gap="4">
-                                        {service.gallery.map((imageData) => (
-                                            <Box key={imageData._key} className="relative h-64 rounded-lg overflow-hidden group">
-                                                <Image
-                                                    src={urlForImage(imageData)}
-                                                    alt={imageData.alt || 'Gallery Image'}
-                                                    fill
-                                                    className="object-cover transition-transform duration-300 group-hover:scale-110"
-                                                />
-                                            </Box>
-                                        ))}
-                                    </Grid>
-                                ) : (
-                                    <Text className=" italic">No images available for this service.</Text>
-                                )}
-                            </Flex>
                         </Flex>
 
                         <Flex p="4" direction="column" className="relative rounded-lg sticky top-40 self-start lg:col-span-1">

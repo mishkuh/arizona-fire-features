@@ -3,7 +3,7 @@ import { Grid } from '@radix-ui/themes';
 
 export default function AnimatedGrid({ children }: { children: React.ReactNode[] }) {
     return (
-        <Grid columns={{ initial: '1', sm: '2', md: '4', lg: '4', xl: '4' }} gap="4">
+        <Grid height="100%" columns={{ initial: '1', sm: '2', md: '3', lg: '3', xl: '3' }} gap="4">
             {children.map((child, index) => (
                 <motion.div
                     key={index}

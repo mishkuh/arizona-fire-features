@@ -18,9 +18,9 @@ interface ServiceCardProps {
 
 const ServiceCard = ({ title, description, coverImage, alt, featureList, slug }: ServiceCardProps) => {
     return (
-        <Card asChild>
-            <Link href={`/services/${slug}`}>
-                <Flex direction="column" gap="2" p="4">
+        <Card asChild style={{ height: '100%' }}>
+            <Link href={`/services/${slug}`} style={{ height: '100%' }}>
+                <Flex justify="between" direction="column" gap="2" p="4" style={{ height: '100%' }}>
                     <Box position="relative" className="aspect-16/9">
                         {coverImage && (
                             <Image
@@ -33,7 +33,7 @@ const ServiceCard = ({ title, description, coverImage, alt, featureList, slug }:
                     </Box>
                     <Flex direction="column" gap="2" p="4">
                         <Heading size="5">{title}</Heading>
-                        <Text as="p" size="2">{description}</Text>
+                        <Text as="p" size="2" color='gray'>{description}</Text>
                         <Flex direction="column">
                             {featureList?.slice(0, 4).map((feature, idx) => (
                                 <Flex key={idx} align="center" gap="2">

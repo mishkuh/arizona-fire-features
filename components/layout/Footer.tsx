@@ -37,8 +37,7 @@ const Footer = async () => {
                             Quick Links
                         </Heading>
                         <Link className="hover:text-[var(--orange-9)] transition-all duration-200 p-1" href="/">Home</Link>
-                        <Link className="hover:text-[var(--orange-9)] transition-all duration-200 p-1" href="/portfolio">Portfolio</Link>
-                        <Link className="hover:text-[var(--orange-9)] transition-all duration-200 p-1" href="/services">Services</Link>
+                        <Link className="hover:text-[var(--orange-9)] transition-all duration-200 p-1" href="/store">Store</Link>
                         <Link className="hover:text-[var(--orange-9)] transition-all duration-200 p-1" href="/about">About</Link>
                         <Link className="hover:text-[var(--orange-9)] transition-all duration-200 p-1" href="/contact">Contact</Link>
                     </Flex>
@@ -51,7 +50,6 @@ const Footer = async () => {
                         <Link className="hover:text-[var(--orange-9)] transition-all duration-200 p-1" href={`/services/${featuredServices[0]?.slug}`}>{featuredServices[0]?.title}</Link>
                         <Link className="hover:text-[var(--orange-9)] transition-all duration-200 p-1" href={`/services/${featuredServices[1]?.slug}`}>{featuredServices[1]?.title}</Link>
                         <Link className="hover:text-[var(--orange-9)] transition-all duration-200 p-1" href={`/services/${featuredServices[2]?.slug}`}>{featuredServices[2]?.title}</Link>
-                        <Link className="hover:text-[var(--orange-9)] transition-all duration-200 p-1" href="/services">All Services</Link>
                     </Flex>
 
                     {/* Contact Info Column */}

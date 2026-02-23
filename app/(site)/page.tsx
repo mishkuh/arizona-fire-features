@@ -129,18 +129,7 @@ const Home = async () => {
                                 featureList={service.features}
                                 slug={service.slug}
                             />
-                        ))
-                            .concat(
-                                // Add a card to view all services
-                                <ServiceCard key={featuredServices.length} {...{
-                                    title: 'View All Services',
-                                    description: 'From custom fire pits to elegant outdoor fireplaces, our team provides expert fire feature solutions. We specialize in creating functional, beautiful environments tailored to your home, ensuring every outdoor space becomes a lasting, high-quality sanctuary.',
-                                    coverImage: '/images/fireplace.webp',
-                                    alt: 'outdoor fire feature',
-                                    featureList: [],
-                                    slug: '/services/'
-                                }} />
-                            )}
+                        ))}
                     </AnimatedGrid>
                 </Container>
             </Section>
