@@ -25,11 +25,7 @@ const ServiceDetail = async (
             >
                 {/* Service Title */}
                 <Card size="2" className='max-w-[500px]'>
-                    <Flex direction="column" align="start">
-                        <Link href="/services" className="flex items-center gap-2">
-                            <ArrowLeft className="w-5 h-5" />
-                            <Text>Back to Services</Text>
-                        </Link>
+                    <Flex p="4" direction="column" align="start">
                         <Heading
                             size="9"
                             my="3"

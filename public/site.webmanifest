@@ -1,0 +1,17 @@
+{
+    "name": "Arizona Fire Features",
+    "short_name": "AZ Fire Features",
+    "description": "Custom fire pits, fire tables, and outdoor fireplaces for the Phoenix metro area.",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#111111",
+    "theme_color": "#d97220",
+    "orientation": "portrait-primary",
+    "icons": [
+        {
+            "src": "/images/logo.png",
+            "sizes": "16x16",
+            "type": "image/png"
+        }
+    ]
+}

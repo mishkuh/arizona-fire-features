@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu } from 'lucide-react';
 import Link from 'next/link';
 import { Flex, TabNav, Button, IconButton, Heading, Box, DropdownMenu, AspectRatio } from '@radix-ui/themes';
 import Image from 'next/image';
@@ -24,16 +24,16 @@ export default function Header() {
             <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div className="flex h-24 items-center justify-between">
                     {/* Logo */}
-                    <Flex align="center">
+                    <Flex asChild align="center">
+                        <Link href="/">
                         <Box className="flex-shrink-0 relative w-12 h-12 rounded-full overflow-hidden p-1 mr-3">
-                                <Link href="/">
                                 <Image src={logo}
                                     alt="Arizona Fire Features Logo"
                                     fill
                                     className="object-contain" />
-                                </Link>
                         </Box>
                         <Heading size="7">Arizona Fire Features</Heading>
+                        </Link>
                     </Flex>
 
                     {/* Desktop Navigation */}
