@@ -60,19 +60,25 @@ const Footer = async () => {
                         <Flex align="center" className="p-1">
                             <MapPin className="text-[var(--orange-9)] mr-2" />
                             <Text>
+                                <Link href="https://www.google.com/maps/search/?api=1&query=925+W+Hatcher+Rd,+Phoenix,+AZ+85021" target="_blank">
                                 925 W. HATCHER RD PHOENIX AZ 85021
+                                </Link>
                             </Text>
                         </Flex>
                         <Flex align="center" className="p-1">
                             <Phone className="text-[var(--orange-9)] mr-2" />
                             <Text>
+                                <Link href="tel:6024697266">
                                 (602) 469-7266
+                                </Link>
                             </Text>
                         </Flex>
                         <Flex align="center" className="p-1">
                             <Mail className="text-[var(--orange-9)] mr-2" />
                             <Text>
+                                <Link href="mailto:arizonafirefeatures@gmail.com">
                                 arizonafirefeatures@gmail.com
+                                </Link>
                             </Text>
                         </Flex>
                     </Flex>

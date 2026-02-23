@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import * as motion from 'motion/react-client'
 import { Mail, Phone, MapPin, Send, CheckCircle, AlertCircle } from 'lucide-react';
+import Link from 'next/link';
 import { Button, Box, Section, Container, Grid, Flex, Heading, Text, Card, TextField, TextArea, Select, Spinner, Callout } from '@radix-ui/themes';
 import { sendEmail } from '@/app/actions';
 
@@ -82,7 +83,7 @@ const Contact = () => {
                     >
                         <Flex direction="column" align="center" className="text-center text-white max-w-3xl mx-auto">
                             <Heading size="8" mb="6" className="font-novecento-sans">Get In Touch</Heading>
-                            <Text size="5" className="block">
+                            <Text size="5" className="block" color="gray">
                                 Ready to transform your outdoor space? Let's discuss your project and provide a free consultation
                             </Text>
                         </Flex>
@@ -109,43 +110,49 @@ const Contact = () => {
                                 </Box>
 
                                 <Flex direction="column" gap="6">
-                                    <Card size="3">
-                                        <Flex gap="4" align="start">
-                                            <Flex justify="center" align="center" className="bg-[var(--orange-3)] p-3 rounded-full shrink-0">
-                                                <Phone className="w-6 h-6" color="orange" />
+                                    <Card asChild size="3">
+                                        <Link href="tel:6024697266">
+                                            <Flex gap="4" align="start">
+                                                <Flex justify="center" align="center" className="bg-[var(--orange-3)] p-3 rounded-full shrink-0">
+                                                    <Phone className="w-6 h-6" color="orange" />
+                                                </Flex>
+                                                <Box>
+                                                    <Text className=" mb-1 block font-novecento-sans">Phone</Text>
+                                                    <Text className="text-[var(--gray-11)] block">(602) 469-7266</Text>
+                                                    <Text size="1" className=" mt-1 block">Mon-Fri 8am-6pm, Sat 9am-4pm</Text>
+                                                </Box>
                                             </Flex>
-                                            <Box>
-                                                <Text className=" mb-1 block font-novecento-sans">Phone</Text>
-                                                <Text className="text-[var(--gray-11)] block">(602) 469-7266</Text>
-                                                <Text size="1" className=" mt-1 block">Mon-Fri 8am-6pm, Sat 9am-4pm</Text>
-                                            </Box>
-                                        </Flex>
+                                        </Link>
                                     </Card>
 
-                                    <Card size="3">
-                                        <Flex gap="4" align="start">
-                                            <Flex justify="center" align="center" className="bg-[var(--orange-3)] p-3 rounded-full shrink-0">
-                                                <Mail className="w-6 h-6" color="orange" />
+                                    <Card asChild size="3">
+                                        <Link href="arizonafirefeatures@gmail.com">
+                                            <Flex gap="4" align="start">
+                                                <Flex justify="center" align="center" className="bg-[var(--orange-3)] p-3 rounded-full shrink-0">
+                                                    <Mail className="w-6 h-6" color="orange" />
+                                                </Flex>
+                                                <Box>
+                                                    <Text className=" mb-1 block font-novecento-sans">Email</Text>
+                                                    <Text className="text-[var(--gray-11)] block">arizonafirefeatures@gmail.com</Text>
+                                                    <Text size="1" className=" mt-1 block">We'll respond within 24 hours</Text>
+                                                </Box>
                                             </Flex>
-                                            <Box>
-                                                <Text className=" mb-1 block font-novecento-sans">Email</Text>
-                                                <Text className="text-[var(--gray-11)] block">arizonafirefeatures@gmail.com</Text>
-                                                <Text size="1" className=" mt-1 block">We'll respond within 24 hours</Text>
-                                            </Box>
-                                        </Flex>
+                                        </Link>
                                     </Card>
 
-                                    <Card size="3">
-                                        <Flex gap="4" align="start">
-                                            <Flex justify="center" align="center" className="bg-[var(--orange-3)] p-3 rounded-full shrink-0">
-                                                <MapPin className="w-6 h-6" color="orange" />
+                                    <Card asChild size="3">
+                                        <Link href="https://www.google.com/maps/search/?api=1&query=925+W+Hatcher+Rd,+Phoenix,+AZ+85021" target="_blank">
+                                            <Flex gap="4" align="start">
+                                                <Flex justify="center" align="center" className="bg-[var(--orange-3)] p-3 rounded-full shrink-0">
+                                                    <MapPin className="w-6 h-6" color="orange" />
+                                                </Flex>
+                                                <Box>
+                                                    <Text className=" mb-1 block font-novecento-sans">Address</Text>
+                                                    <Text className="text-[var(--gray-11)] block">925 W. HATCHER RD</Text>
+                                                    <Text className="text-[var(--gray-11)] block">PHOENIX AZ 85021</Text>
+                                                </Box>
                                             </Flex>
-                                            <Box>
-                                                <Text className=" mb-1 block font-novecento-sans">Service Area</Text>
-                                                <Text className="text-[var(--gray-11)] block">Phoenix Metropolitan Area</Text>
-                                                <Text className="text-[var(--gray-11)] block">Arizona</Text>
-                                            </Box>
-                                        </Flex>
+                                        </Link>
                                     </Card>
                                 </Flex>
 
