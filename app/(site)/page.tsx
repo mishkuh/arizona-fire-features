@@ -39,8 +39,8 @@ const Home = async () => {
             {/* Hero Section with Animated Background */}
             <SectionWithBackground imageUrl={heroImage.src} alt="alt" blurDataURL=''>
                 {/* Hero Content */}
-                <Card size="2" className='max-w-[900px] absolute mx-10 items-center justify-center'>
-                    <Flex m="8px" p="8" gap="4" direction="column" justify="center">
+                <Card size={{ initial: "1", sm: "2" }} className='max-w-[900px] absolute mx-10 items-center justify-center'>
+                    <Flex m="8px" p={{ initial: "2", md: "8" }} gap="4" direction="column" justify="center">
                         <Heading
                             asChild
                             size={{ initial: "8", sm: "9" }}
@@ -56,7 +56,7 @@ const Home = async () => {
                         <Text
                             asChild
                             color='orange'
-                            size="6"
+                            size={{ initial: "4", sm: "5" }}
                         >
                             <motion.div
                                 initial={{ opacity: 0, y: 30 }}
@@ -70,7 +70,7 @@ const Home = async () => {
                         </Text>
                         <Text
                             asChild
-                            size={{ initial: "5", sm: "6" }}
+                            size={{ initial: "4", sm: "5" }}
                             color="gray"
                         >
                             <motion.div
@@ -87,9 +87,9 @@ const Home = async () => {
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.6, delay: 0.6 }}
                             >
-                                <Button asChild size={{ initial: "3", sm: "4" }} variant="solid" color='gray'>
+                                <Button asChild size={{ initial: "2", sm: "3" }} variant="solid" color='gray'>
                                     <Link href="/contact">
-                                        Get Free Consultation
+                                        Contact Us
                                         <ArrowRight />
                                     </Link>
                                 </Button>

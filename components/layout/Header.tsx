@@ -22,7 +22,7 @@ export default function Header() {
     return (
         <header className="sticky top-0 backdrop-blur-md w-full shadow-sm z-50">
             <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                <div className="flex h-24 items-center justify-between">
+                <Flex py="2" align="center" justify="between">
                     {/* Logo */}
                     <Flex asChild align="center">
                         <Link href="/">
@@ -32,7 +32,7 @@ export default function Header() {
                                     fill
                                     className="object-contain" />
                         </Box>
-                        <Heading size="7">Arizona Fire Features</Heading>
+                            <Heading size={{ initial: "5", sm: "6" }}>Arizona Fire Features</Heading>
                         </Link>
                     </Flex>
 
@@ -75,7 +75,7 @@ export default function Header() {
                             </DropdownMenu.Content>
                         </DropdownMenu.Root>
                     </div>
-                </div>
+                </Flex>
             </nav>
         </header>
     );

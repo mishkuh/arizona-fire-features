@@ -15,15 +15,13 @@ const Footer = async () => {
             <Container className="pt-10">
                 <Flex justify="between" height="100%" align={{ initial: 'center', sm: 'stretch' }} direction={{ initial: 'column', sm: 'row' }}>
                     {/* Brand Column */}
-                    <Flex flexGrow="2" flexShrink="1" flexBasis="0" direction="column">
-                        <Flex gap="2" height="100%" direction="column" align="start">
-                            <Heading color="gray" as="h3" className=" font-novecento-sans">
-                                Arizona Fire Features
-                            </Heading>
-                            <Text wrap="balance" as="p">
-                                Expertly crafting custom fire features and outdoor living spaces that bring warmth, elegance, and ambiance to your Arizona home.
-                            </Text>
-                        </Flex>
+                    <Flex flexGrow="2" flexShrink="1" flexBasis="0" direction="column" justify="between" align={{ initial: 'center', sm: 'start' }}>
+                        <Heading color="gray" as="h3" className=" font-novecento-sans">
+                            Arizona Fire Features
+                        </Heading>
+                        <Text wrap="balance" as="p" align="center">
+                            Expertly crafting custom fire features and outdoor living spaces that bring warmth, elegance, and ambiance to your Arizona home.
+                        </Text>
                     </Flex>
 
                     {/* Quick Links Column */}
