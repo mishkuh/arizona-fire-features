@@ -25,14 +25,13 @@ export default function Header() {
                 <div className="flex h-24 items-center justify-between">
                     {/* Logo */}
                     <Flex align="center">
-                        <Box width="50px" height="50px" className="rounded-full overflow-hidden bg-white p-1 mr-3">
-                            <Flex align="center" asChild direction="column" gap="2">
+                        <Box className="flex-shrink-0 relative w-12 h-12 rounded-full overflow-hidden p-1 mr-3">
                                 <Link href="/">
-                                    <AspectRatio ratio={1 / 1}>
-                                        <Image src={logo} alt="Arizona Fire Features Logo" fill className="object-contain" />
-                                    </AspectRatio>
+                                <Image src={logo}
+                                    alt="Arizona Fire Features Logo"
+                                    fill
+                                    className="object-contain" />
                                 </Link>
-                            </Flex>
                         </Box>
                         <Heading size="7">Arizona Fire Features</Heading>
                     </Flex>
