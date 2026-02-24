@@ -126,7 +126,7 @@ const Contact = () => {
                                     </Card>
 
                                     <Card asChild size="3">
-                                        <Link href="arizonafirefeatures@gmail.com">
+                                        <Link href="mailto:arizonafirefeatures@gmail.com">
                                             <Flex gap="4" align="start">
                                                 <Flex justify="center" align="center" className="bg-[var(--orange-3)] p-3 rounded-full shrink-0">
                                                     <Mail className="w-6 h-6" color="orange" />
