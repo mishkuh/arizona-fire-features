@@ -1,19 +1,20 @@
 import React from 'react';
 import Link from 'next/link';
 import { ArrowLeft, Check, Clock, DollarSign } from 'lucide-react';
-import { Button, Box, Section, Container, Grid, Flex, Heading, Text, Card, Avatar, Separator } from '@radix-ui/themes';
-import Image from 'next/image';
+import { Button, Box, Section, Container, Grid, Flex, Heading, Text, Card, Separator } from '@radix-ui/themes';
 import SectionWithBackground from '../../../../components/sections/SectionWithBackground';
-import { sanityClient } from '@/lib/sanity.client';
+import { sanityFetch } from '@/components/sanity/live';
 import { getServiceBySlugQuery } from '@/lib/sanity.queries';
 import { urlForImage } from '@/lib/sanity.image';
 import { Service } from '@/sanity.types';
+import { PortableText } from '@/components/sanity/PortableText';
 
 const ServiceDetail = async (
     { params }: { params: Promise<{ slug: string }> }
 ) => {
     const { slug } = await params
-    const service: Service = await sanityClient.fetch(getServiceBySlugQuery, { slug })
+    const { data } = await sanityFetch({ query: getServiceBySlugQuery, params: { slug } })
+    const service = data as Service
     return (
         <Box>
             {/* Hero Section */}
@@ -50,6 +51,12 @@ const ServiceDetail = async (
                             <Flex direction="column" gap="2">
                                 <Heading size="6" color="orange" className="font-novecento-sans">Service Overview</Heading>
                                 <Text size="4">{service.description}</Text>
+                                {service.detailedDescription && (
+                                    <PortableText
+                                        value={service.detailedDescription as Parameters<typeof PortableText>[0]['value']}
+                                        className="mt-2 text-sm text-[var(--gray-12)]"
+                                    />
+                                )}
                             </Flex>
 
                             <Flex direction="column" gap="2">

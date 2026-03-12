@@ -8,22 +8,11 @@ import ServiceCard from '../../components/ui/ServiceCard';
 import { Service } from 'sanity.types';
 import heroImage from '@/public/images/fireplace.webp'
 import { getFeaturedServicesQuery } from '@/lib/sanity.queries';
-import { sanityClient } from '@/lib/sanity.client';
-import { draftMode } from 'next/headers'
+import { sanityFetch } from '@/components/sanity/live'
 
 const Home = async () => {
-    const { isEnabled } = await draftMode()
-    const featuredServices: Service[] = await sanityClient.fetch(
-        getFeaturedServicesQuery,
-        {},
-        isEnabled
-            ? {
-                perspective: "drafts",
-                useCdn: false,
-                stega: true,
-            }
-            : undefined
-    )
+    const { data: featuredServices } = await sanityFetch({ query: getFeaturedServicesQuery })
+    const services = featuredServices as Service[]
 
     const benefitsList = [
         'Isokern Fireplaces',
@@ -119,7 +108,7 @@ const Home = async () => {
                 {/* Grid of services */}
                 <Container size="4" px="6">
                     <AnimatedGrid>
-                        {featuredServices.map((service) => (
+                        {services.map((service: Service) => (
                             <ServiceCard
                                 key={service._id}
                                 title={service.title}
