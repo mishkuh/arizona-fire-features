@@ -12,7 +12,6 @@ import portfolioProject from '@/schemaTypes/portfolioProject'
 import product from '@/schemaTypes/product'
 import service from '@/schemaTypes/service'
 import galleryImage from '@/schemaTypes/galleryImage'
-import invoice from '@/schemaTypes/invoice'
 
 const title = process.env.NEXT_PUBLIC_SANITY_PROJECT_TITLE
 
@@ -28,7 +27,6 @@ export default defineConfig({
       product,
       service,
       galleryImage,
-      invoice,
     ],
   },
   plugins: [

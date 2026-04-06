@@ -24,7 +24,7 @@ const About = () => {
         {
             icon: Flame,
             title: 'Attention to Detail',
-            description: 'We pay close attention to detail to deliver clean, beautiful work every time.'
+            description: 'Every install is clean, precise, and finished to a standard your clients will notice.'
         }
     ];
 
@@ -79,13 +79,13 @@ const About = () => {
                             <Heading size="8" className=" mb-6 font-novecento-sans">Our Story</Heading>
                             <Flex direction="column" gap="4">
                                 <Text color="gray" as="p" size="3" className="leading-relaxed">
-                                    Founded in the heart of the desert, Arizona Fire Features began with a simple vision: to transform outdoor living spaces into warm, inviting sanctuaries. For over two decades, we have specialized in designing and installing custom fire pits, outdoor fireplaces, and unique fire elements that capture the spirit of the Southwest.
+                                    Arizona Fire Features has been a trusted trade partner across the Valley for over two decades. We specialize in fire pits, outdoor fireplaces, and premium fire elements. We deliver the kind of craftsmanship that makes your finished product stand out and your clients come back. We understand what builders need: reliable scheduling, clean installs, and zero callbacks.
                                 </Text>
                                 <Text color="gray" as="p" size="3" className="leading-relaxed">
-                                    What began as a small family venture has grown into a trusted name across the Phoenix Valley. As a family-owned and operated business, our success is built on a foundation of quality craftsmanship and the genuine care we bring to every neighbor's home.
+                                    What began as a small family venture has grown into a trusted name across the Valley. As a family-owned and operated business, our success is built on a foundation of quality craftsmanship and the genuine care we bring to every home. We continue to serve Arizona's top builders throughout the region. We build on budget, on time, and built to last.
                                 </Text>
                                 <Text color="gray" as="p" size="3" className="leading-relaxed">
-                                    Today, we continue to serve residential clients throughout the region, driven by an uncompromising commitment to quality and the superior craftsmanship that has been our signature since day one.
+                                    Whether you're framing a single custom home or managing a full development, Arizona Fire Features is the sub you can count on from start to finish.
                                 </Text>
                             </Flex>
                         </motion.div>
@@ -99,7 +99,7 @@ const About = () => {
                             <Box className="rounded-2xl overflow-hidden shadow-2xl h-96 relative">
                                 <Image
                                     alt="Picture of Arizona Fire Features team"
-                                    className="object-cover"
+                                    className="object-contain"
                                     src="/images/logo.png"
                                     fill
                                 />
@@ -142,8 +142,8 @@ const About = () => {
                                                 <Icon className="w-8 h-8 " />
                                             </Flex>
                                         </Flex>
-                                        <Heading size="4" weight="bold" className=" mb-2 font-novecento-sans">{value.title}</Heading>
-                                        <Text color="gray" size="2" className="block">{value.description}</Text>
+                                        <Heading size="4" weight="bold" className="mb-2 font-novecento-sans">{value.title}</Heading>
+                                        <Text color="gray" size="4" className="block">{value.description}</Text>
                                     </Flex>
                                 </motion.div>
                             );
@@ -153,7 +153,7 @@ const About = () => {
             </Section>
 
             {/* Team Section */}
-            <Section size="3" className="">
+            {/* <Section size="3" className="">
                 <Container size="4" px="4">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
@@ -193,7 +193,7 @@ const About = () => {
                         ))}
                     </Grid>
                 </Container>
-            </Section>
+            </Section> */}
 
             {/* Stats Section */}
             <Section size="3" className="">

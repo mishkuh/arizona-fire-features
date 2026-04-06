@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { ArrowLeft, Check, Clock, DollarSign } from 'lucide-react';
+import { ArrowLeft, Check } from 'lucide-react';
 import { Button, Box, Section, Container, Grid, Flex, Heading, Text, Card, Separator } from '@radix-ui/themes';
 import SectionWithBackground from '../../../../components/sections/SectionWithBackground';
 import { sanityFetch } from '@/components/sanity/live';
@@ -91,23 +91,7 @@ const ServiceDetail = async (
                                     ))}
                                 </Flex>
 
-                                <Flex direction="column" gap="4" pt="4">
-                                    <Flex gap="3" align="start">
-                                        <DollarSign color="orange" className="w-5 h-5 shrink-0 mt-0.5" />
-                                        <Box>
-                                            <Text weight="bold" className=" mb-1 block font-novecento-sans">Pricing</Text>
-                                            <Text size="2">{service.pricing}</Text>
-                                        </Box>
-                                    </Flex>
 
-                                    <Flex gap="3" align="start" mb="2">
-                                        <Clock color="orange" className="w-5 h-5 shrink-0 mt-0.5" />
-                                        <Box>
-                                            <Text weight="bold" className=" mb-1 block font-novecento-sans">Timeline</Text>
-                                            <Text size="2">{service.timeline}</Text>
-                                        </Box>
-                                    </Flex>
-                                </Flex>
 
                                 <Flex direction="column" align="center" gap="2" px="6">
                                     <Separator size="4" my="5" />
@@ -116,7 +100,7 @@ const ServiceDetail = async (
                                     </Text>
                                     <Button asChild size="4" variant="solid">
                                         <Link href="/contact">
-                                            Request a Quote
+                                            Contact Us
                                         </Link>
                                     </Button>
                                 </Flex>

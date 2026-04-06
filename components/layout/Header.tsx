@@ -20,11 +20,13 @@ import Image from 'next/image';
 import logo from '@/public/images/logo.png';
 import { usePathname } from 'next/navigation';
 
-/** Top-level navigation items — order here determines render order. */
+/**
+ * Top-level navigation items — order here determines render order.
+ * @remarks Store is intentionally omitted — it returns a 404 until it is ready.
+ * @remarks Gallery is temporarily disabled until content is ready.
+ */
 const navigation = [
     { href: '/', name: 'Home' },
-    { href: '/store', name: 'Store' },
-    { href: '/gallery', name: 'Gallery' },
     { href: '/about', name: 'About' },
     { href: '/contact', name: 'Contact' },
 ];

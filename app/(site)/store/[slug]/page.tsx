@@ -1,4 +1,5 @@
 import React from 'react';
+import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ArrowLeft } from 'lucide-react';
@@ -102,6 +103,12 @@ const headingAccentStyle: React.CSSProperties = {
 const ProductDetail = async (
     { params }: { params: Promise<{ slug: string }> }
 ) => {
+    /**
+     * Temporarily return a 404 while the store is being prepared.
+     * Remove this call when the store is ready to launch.
+     */
+    notFound();
+
     const { slug } = await params;
     const { data } = await sanityFetch({ query: getProductBySlugQuery, params: { slug } });
     const product = data as Product;
@@ -110,6 +117,12 @@ const ProductDetail = async (
 
     /** Gallery images sliced to the first two for the feature-section thumbnails. */
     const featuredThumbs = (product.gallery ?? []).slice(0, 2);
+
+    /**
+     * Narrowed alias for availableSizes — resolves the TS "possibly undefined"
+     * error that occurs when calling .join() inside JSX conditional expressions.
+     */
+    const sizes: string[] = product.availableSizes ?? [];
 
     return (
         <Box>
@@ -199,10 +212,10 @@ const ProductDetail = async (
                             </Text>
 
                             {/* Available sizes — shown as "28 • 36 • 42 • 48…" */}
-                            {product.availableSizes && product.availableSizes.length > 0 && (
+                            {sizes.length > 0 && (
                                 <Text size="2" style={{ fontWeight: 600 }}>
                                     <span style={{ color: 'var(--gray-11)' }}>Available Sizes: </span>
-                                    {product.availableSizes.join(' • ')}
+                                    {sizes.join(' • ')}
                                 </Text>
                             )}
 
@@ -221,7 +234,7 @@ const ProductDetail = async (
                             {/* Pricing */}
                             <Text size="2" style={{ fontWeight: 600 }}>
                                 {product.price
-                                    ? <>Starting at <strong>${product.price.toLocaleString()}</strong></>
+                                    ? <>Starting at <strong>${product.price?.toLocaleString()}</strong></>
                                     : 'Contact us for pricing'}
                             </Text>
 
@@ -307,7 +320,7 @@ const ProductDetail = async (
                         {/* 2-column: gallery thumbs LEFT · feature list RIGHT */}
                         <div>
                             {/* Feature bullet list */}
-                            {product.features && product.features.length > 0 && (
+                            {(product.features?.length ?? 0) > 0 && (
                                 <Flex direction="column" gap="3">
                                     <ul
                                         style={{
@@ -319,7 +332,7 @@ const ProductDetail = async (
                                             gap: '10px',
                                         }}
                                     >
-                                        {product.features.map((item, index) => (
+                                        {(product.features ?? []).map((item, index) => (
                                             <li
                                                 key={index}
                                                 style={{
@@ -351,7 +364,7 @@ const ProductDetail = async (
             )}
 
             {/* ── 3. Project gallery ────────────────────────────────────────────── */}
-            {product.gallery && product.gallery.length > 0 && (
+            {(product.gallery?.length ?? 0) > 0 && (
                 <Section
                     size="3"
                     style={{
@@ -375,7 +388,7 @@ const ProductDetail = async (
                         </div>
 
                         {/* Gallery grid with lightbox */}
-                        <ProductGallery images={product.gallery} />
+                        <ProductGallery images={product.gallery ?? []} />
                     </Container>
                 </Section>
             )}

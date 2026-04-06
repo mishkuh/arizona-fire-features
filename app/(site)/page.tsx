@@ -15,12 +15,12 @@ const Home = async () => {
     const services = featuredServices as Service[]
 
     const benefitsList = [
-        'Isokern Fireplaces',
-        'Licensed & Insured',
-        'Free Consultations',
-        'Satisfaction Guaranteed',
+        'Isokern Fireplace Specialists',
+        'Licensed, Bonded & Insured',
         '20+ Years Experience',
-        'Competitive Pricing'
+        'Competitive Pricing',
+        'ROC#290918',
+        'Commitment to Quality'
     ];
 
     return (
@@ -50,7 +50,7 @@ const Home = async () => {
                             <motion.div
                                 initial={{ opacity: 0, y: 30 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.6, delay: 0.2 }}
+                                transition={{ duration: 0.6, delay: 0.3 }}
                             >
                                 <Link href="https://earthcore.com/">
                                     ISOKERN FIREPLACE SPECIALISTS
@@ -67,10 +67,10 @@ const Home = async () => {
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.6, delay: 0.4 }}
                             >
-                                We specialize in creating premium fireplaces, fire features, and firepits in homes all over The Valley.
+                                {"We partner with builders and contractors throughout The Valley to deliver premium fire features, on schedule and on spec."}
                             </motion.div>
                         </Text>
-                        <Flex asChild gap="4" direction={{ initial: 'column', sm: 'row' }}>
+                        <Flex asChild gap="4" justify="between" align={{ initial: 'start', sm: 'end' }} direction={{ initial: 'column-reverse', sm: 'row' }}>
                             <motion.div
                                 initial={{ opacity: 0, y: 30 }}
                                 animate={{ opacity: 1, y: 0 }}
@@ -82,6 +82,7 @@ const Home = async () => {
                                         <ArrowRight />
                                     </Link>
                                 </Button>
+                                <Text color='gray' style={{ fontStyle: 'italic' }} size={{ initial: "1", sm: "2" }}>{"ROC#290918"}</Text>
                             </motion.div>
                         </Flex>
                     </Flex>
@@ -100,7 +101,7 @@ const Home = async () => {
                     >
                         <Heading size="8">Featured Services</Heading>
                         <Text size="5" color='gray'>
-                            Comprehensive fire feature solutions for residential properties
+                            Trusted by builders and developers across The Valley
                         </Text>
                     </motion.div>
                 </Container>
@@ -135,7 +136,7 @@ const Home = async () => {
                         <Flex gap="4" direction="column">
                             <Heading size="8">Why Choose Arizona Fire Features?</Heading>
                             <Text size="5" color='gray'>
-                                We're committed to excellence in every project we undertake
+                                Reliable trade partner for builders, GCs, and developers
                             </Text>
                         </Flex>
                     </motion.div>
@@ -181,18 +182,18 @@ const Home = async () => {
                         <Grid columns={{ initial: '1', sm: '3', md: '3' }} gap="6">
                             {[
                                 {
-                                    name: 'Customer 1',
-                                    text: 'Arizona Fire Features continues to be my go-to fire feature company. The attention to detail is incredible!',
+                                    name: 'Michael W., General Contractor',
+                                    text: 'Arizona Fire Features is our go-to sub for every new build. They show up on time, hit every deadline, and the quality is always top notch.',
                                     rating: 5
                                 },
                                 {
-                                    name: 'Customer 2',
-                                    text: 'Professional and reliable. They exceeded our expectations on our residential fire feature.',
+                                    name: 'Sarah J., Custom Home Builder',
+                                    text: 'We have used them on dozens of projects and they never miss. Competitive pricing, easy to work with, and clients love the results.',
                                     rating: 5
                                 },
                                 {
-                                    name: 'Customer 3',
-                                    text: 'Best fire feature company we\'ve worked with. They maintain our property beautifully and are always responsive.',
+                                    name: 'David L., Developer',
+                                    text: 'Best fire feature sub in The Valley. Their scheduling is flexible and they know how to work within a build timeline without slowing anyone down.',
                                     rating: 5
                                 }
                             ].map((testimonial, index) => (
@@ -231,14 +232,14 @@ const Home = async () => {
                             viewport={{ once: true }}
                         >
                             <Heading size="8">
-                                Ready to Transform Your Outdoor Space?
+                                Ready to Work With Us?
                             </Heading>
                             <Text size="5" color='gray'>
-                                Get started with a free consultation and let us bring your outdoor vision to life
+                                Partner with Arizona's trusted fire feature experts for your next project
                             </Text>
                             <Button asChild size="4">
                                 <Link href="/contact">
-                                    Schedule Free Consultation
+                                    Get In Touch
                                     <ArrowRight />
                                 </Link>
                             </Button>

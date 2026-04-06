@@ -65,7 +65,7 @@ const Services = async () => {
                             </Text>
                             <Button asChild size="4">
                                 <Link href="/contact">
-                                    Request a Quote
+                                    Contact Us
                                 </Link>
                             </Button>
                         </Flex>

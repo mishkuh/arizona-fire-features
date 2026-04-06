@@ -32,11 +32,25 @@ const Contact = () => {
         setIsSubmitting(true);
 
         try {
-            console.log('Sending email...');
+            /**
+             * Web3Forms must be called from the browser — server-side requests
+             * are blocked by Cloudflare's bot challenge (HTTP 403).
+             */
+            // Submit form to Web3Forms
+            const web3formsResult = await fetch("https://api.web3forms.com/submit", {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+                body: JSON.stringify({
+                    access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY,
+                    ...formData,
+                }),
+            });
+            console.log('Web3Forms result:', web3formsResult);
 
-            const result = await sendEmail(formData);
+            // Send email to Arizona Fire Features
+            const emailResult = await sendEmail(formData);
 
-            if (!result.success) {
+            if (!emailResult.success) {
                 setStatus('error');
                 return;
             }
@@ -50,7 +64,7 @@ const Contact = () => {
                 source: '',
             });
         } catch (error) {
-            console.error('Error sending email:', error);
+            console.error('Error submitting form:', error);
             setStatus('error');
         } finally {
             setIsSubmitting(false);
@@ -84,7 +98,7 @@ const Contact = () => {
                         <Flex direction="column" align="center" className="text-center text-white max-w-3xl mx-auto">
                             <Heading size="8" mb="6" className="font-novecento-sans">Get In Touch</Heading>
                             <Text size="5" className="block" color="gray">
-                                Ready to transform your outdoor space? Let's discuss your project and provide a free consultation
+                                Ready to transform your outdoor space? Let's discuss your vision and get your project started
                             </Text>
                         </Flex>
                     </motion.div>
@@ -119,7 +133,7 @@ const Contact = () => {
                                                 <Box>
                                                     <Text className=" mb-1 block font-novecento-sans">Phone</Text>
                                                     <Text className="text-[var(--gray-11)] block">(602) 469-7266</Text>
-                                                    <Text size="1" className=" mt-1 block">Mon-Fri 8am-6pm, Sat 9am-4pm</Text>
+                                                    <Text size="1" className=" mt-1 block">Monday through Friday 6:30 AM - 3:00 PM</Text>
                                                 </Box>
                                             </Flex>
                                         </Link>
@@ -134,7 +148,6 @@ const Contact = () => {
                                                 <Box>
                                                     <Text className=" mb-1 block font-novecento-sans">Email</Text>
                                                     <Text className="text-[var(--gray-11)] block">arizonafirefeatures@gmail.com</Text>
-                                                    <Text size="1" className=" mt-1 block">We'll respond within 24 hours</Text>
                                                 </Box>
                                             </Flex>
                                         </Link>
@@ -158,9 +171,9 @@ const Contact = () => {
 
                                 <Card>
                                     <Flex direction="column" gap="4" p="4">
-                                        <Heading size="4">Free Consultation</Heading>
+                                        <Heading size="4">Expert Advice</Heading>
                                         <Text color="gray">
-                                            Schedule a free on-site consultation to discuss your project and receive a detailed estimate.
+                                            Our specialists will work closely with you to understand your vision and install fire feature that exceeds your expectations.
                                         </Text>
                                         <Text>No obligation • Expert advice • Custom solutions</Text>
                                     </Flex>

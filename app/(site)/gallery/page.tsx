@@ -92,7 +92,7 @@ const Gallery = async () => {
                                     transition: 'background 0.2s',
                                 }}
                             >
-                                Get a Free Quote
+                                Contact Us
                             </a>
                         </Flex>
                     </motion.div>

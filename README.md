@@ -183,15 +183,13 @@ arizona-fire-features/
 │   ├── sanity.client.ts     # Configured Sanity client
 │   ├── sanity.queries.ts    # All GROQ query definitions
 │   ├── sanity.image.ts      # Image URL builder helper
-│   ├── resend.client.ts     # Resend client singleton
-│   └── stripe.ts            # Stripe server client singleton
+│   └── resend.client.ts     # Resend client singleton
 │
 ├── schemaTypes/             # Sanity document type definitions
 │   ├── service.ts
 │   ├── product.ts           # Product + inventory fields
 │   ├── portfolioProject.ts
-│   ├── galleryImage.ts
-│   └── invoice.ts           # Invoice + payment token + Stripe fields
+│   └── galleryImage.ts
 │
 ├── public/images/           # Static assets (logo, hero image)
 ├── sanity.config.ts         # Sanity Studio configuration
@@ -219,11 +217,6 @@ NEXT_PUBLIC_SANITY_DATASET=      # e.g. "production"
 SANITY_API_READ_TOKEN=           # Sanity API token (viewer role)
 NEXT_PUBLIC_SANITY_STUDIO_URL=   # URL where the Studio is hosted
 RESEND_API_KEY=                  # Resend API key for email
-
-# Stripe — required for online invoice payments
-STRIPE_SECRET_KEY=               # From https://dashboard.stripe.com/apikeys
-NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY= # From Stripe dashboard (safe to expose)
-STRIPE_WEBHOOK_SECRET=           # From Stripe CLI or dashboard webhook endpoint
 ```
 
 ### Development
@@ -361,49 +354,6 @@ Stripe Webhook fires → POST /api/stripe/webhook
 | Invalid/unknown token | Invoice not found message |
 | After successful payment | Animated checkmark success screen |
 
-### Stripe Setup (Development)
-
-1. Create a free [Stripe account](https://stripe.com) and get your **test mode** keys from the dashboard
-2. Add to `.env.local`:
-   ```bash
-   STRIPE_SECRET_KEY=sk_test_...
-   NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_...
-   ```
-3. Install the [Stripe CLI](https://stripe.com/docs/stripe-cli) and forward webhooks locally:
-   ```bash
-   stripe listen --forward-to localhost:3000/api/stripe/webhook
-   ```
-4. Copy the webhook signing secret printed by the CLI and add it:
-   ```bash
-   STRIPE_WEBHOOK_SECRET=whsec_...
-   ```
-5. Use test card `4242 4242 4242 4242` with any future expiry and CVC
-
-### Stripe Setup (Production)
-
-1. Switch to **live mode** keys in the Stripe dashboard
-2. Add a Webhook Endpoint in your Stripe dashboard pointing to `https://arizonafirefeatures.com/api/stripe/webhook`
-3. Select the event: `payment_intent.succeeded`
-4. Copy the signing secret from the endpoint page → `STRIPE_WEBHOOK_SECRET` in Vercel
-
-### Files Added
-
-| File | Purpose |
-|---|---|
-| `schemaTypes/invoice.ts` | Sanity invoice document schema |
-| `lib/stripe.ts` | Stripe server client singleton |
-| `lib/sanity.queries.ts` + `getInvoiceByTokenQuery` | GROQ query for token lookup |
-| `app/api/invoices/create-payment-intent/route.ts` | Creates Stripe PaymentIntent |
-| `app/api/stripe/webhook/route.ts` | Handles `payment_intent.succeeded` |
-| `app/pay/[token]/layout.tsx` | Standalone layout (no nav/footer) |
-| `app/pay/[token]/page.tsx` | Server component entry point |
-| `app/pay/[token]/PaymentForm.tsx` | Stripe Elements client component |
-| `app/pay/[token]/PaymentSuccess.tsx` | Success state |
-| `components/ui/PaymentConfirmationTemplate.tsx` | React Email confirmation template |
-| `app/actions.ts` + `sendPaymentConfirmationEmail()` | Server action for confirmation email |
-
----
-
 ## TODO — Improvements
 
 ### 🟥 Functionality
@@ -412,7 +362,7 @@ Stripe Webhook fires → POST /api/stripe/webhook
 - [ ] **Contact form validation** — Add client-side validation feedback (field-level error messages, not just silent `return`)
 - [ ] **Contact form: `console.log` left in** — Remove `console.log('Sending email...')` in `contact/page.tsx` before production
 - [ ] **Map integration** — The "Service Area" section in Contact is a placeholder. Embed a real map (Google Maps iframe or Mapbox)
-- [ ] **Testimonials** — Testimonials on the Home page are hardcoded placeholders (`Customer 1`, `Customer 2`, etc.). Move to Sanity or replace with real reviews
+- [X] **Testimonials** — Testimonials on the Home page are hardcoded placeholders (`Customer 1`, `Customer 2`, etc.). Move to Sanity or replace with real reviews
 - [ ] **About page team section** — Team bios are placeholder text. Add real bios and photos (ideally from Sanity)
 
 ### 🟨 Code Quality

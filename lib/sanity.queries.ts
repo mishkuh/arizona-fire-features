@@ -246,26 +246,3 @@ export const getAllGalleryImagesQuery = groq`
     image,
   }
 `
-
-// ─── Invoices ────────────────────────────────────────────────────────────────
-
-/**
- * Fetches a single invoice by its unique payment token.
- *
- * Used by the hidden payment page (`/pay/[token]`) to load invoice details.
- * The token acts as a secret key — only customers with the link can access it.
- */
-export const getInvoiceByTokenQuery = groq`
-  *[_type == "invoice" && token == $token][0] {
-    _id,
-    invoiceNumber,
-    customerName,
-    customerEmail,
-    lineItems,
-    dueDate,
-    notes,
-    status,
-    token,
-    stripePaymentIntentId,
-  }
-`

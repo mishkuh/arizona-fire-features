@@ -11,7 +11,11 @@
  * 3. **CTA** — "Need Multiple Services?" section with a contact link
  *
  * There is no checkout flow — customers phone or email to place orders.
+ *
+ * @remarks The store is temporarily hidden from public access.
+ * Remove the `notFound()` call once the store is ready to go live.
  */
+import { notFound } from 'next/navigation';
 import { Box, Section, Container, Flex, Heading, Text, Button } from '@radix-ui/themes';
 import { sanityFetch } from '@/components/sanity/live';
 import { getAllProductsQuery } from 'lib/sanity.queries';
@@ -27,6 +31,12 @@ import StoreGrid from '@/components/ui/StoreGrid';
  * page HTML is streamed to the client.
  */
 const Store = async () => {
+    /**
+     * Temporarily return a 404 while the store is being prepared.
+     * Remove this call when the store is ready to launch.
+     */
+    notFound();
+
     /** Fetch all products — featured ones are sorted first by the GROQ query. */
     const { data } = await sanityFetch({ query: getAllProductsQuery })
     const products = data as Product[]
@@ -75,7 +85,7 @@ const Store = async () => {
                             </Text>
                             <Button asChild size="4">
                                 <Link href="/contact">
-                                    Request a Quote
+                                    Contact Us
                                 </Link>
                             </Button>
                         </Flex>
