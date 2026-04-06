@@ -11,7 +11,7 @@ import {
     Tailwind,
 } from "@react-email/components";
 
-export interface InquiryEmailProps {
+export interface InquiryFormProps {
     email: string;
     phone: string;
     location: string;
@@ -25,15 +25,15 @@ export const InquiryTemplate = ({
     location,
     details,
     source,
-}: InquiryEmailProps) => (
+}: InquiryFormProps) => (
     <Html>
         <Head />
-        <Preview>New Project Inquiry from {email}</Preview>
+        <Preview>New Contact Form Submission from {email}</Preview>
         <Tailwind>
-            <Body className="bg-gray-100 font-sans">
+            <Body className="bg-gray-100 font-sans p-4">
                 <Container className="bg-white border border-gray-200 p-8 my-10 mx-auto max-w-xl rounded-lg shadow-sm">
-                    <Heading className="text-2xl font-bold text-gray-800 mb-4">
-                        New Project Inquiry
+                    <Heading className="text-2xl font-bold text-orange-800 mb-4">
+                        New Contact Form Submission
                     </Heading>
                     <Text className="text-gray-600 mb-6">
                         You have received a new lead from your website contact form.

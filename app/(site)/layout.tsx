@@ -19,12 +19,15 @@ export default async function SiteLayout({
                     panelBackground="translucent"
                     scaling="100%"
                     appearance="dark"
+                    asChild
                 >
-                    <Header />
-                    <main className="flex-1">
-                        {children}
-                    </main>
-                    <Footer />
+                    <div className="flex-1 flex flex-col w-full radix-themes">
+                        <Header />
+                        <main className="flex-1">
+                            {children}
+                        </main>
+                        <Footer />
+                    </div>
                 </Theme>
             </div>
             {isEnabled && (

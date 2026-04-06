@@ -142,7 +142,27 @@ export type Product = {
     _type: 'image'
     _key: string
   }>
+  /** Available sizes shown inline on the product page (e.g. ['28', '36', '42']). */
+  availableSizes?: Array<string>
+  /** Resolved CDN URL for the brochure PDF. Projected from brochureFile.asset->url. */
+  brochureUrl?: string
+  /** Resolved CDN URL for the CAD file. Projected from cadFile.asset->url. */
+  cadUrl?: string
+  /** Resolved CDN URL for the specifications PDF. Projected from specificationsFile.asset->url. */
+  specificationsUrl?: string
   ctaText?: string
+  /** Whether this product is pinned to the top of the store listing. */
+  isFeatured?: boolean
+  /** Product category slug (e.g. 'fire_pits'). */
+  category?: string
+  /** Internal stock-keeping unit identifier. */
+  sku?: string
+  /** Starting price in USD. Null/undefined means "Contact for Pricing". */
+  price?: number
+  /** Customer-facing availability status. */
+  availability?: 'in_stock' | 'call_for_availability' | 'out_of_stock'
+  /** Internal stock count — not displayed to customers. */
+  stockCount?: number
 }
 
 export type PortfolioProject = {
@@ -197,6 +217,27 @@ export type PortfolioProject = {
     _type: 'image'
     _key: string
   }>
+}
+
+export type GalleryImage = {
+  _id: string
+  _type: 'galleryImage'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  title?: string
+  caption?: string
+  contactInfo?: string
+  image?: {
+    asset?: SanityImageAssetReference
+    media?: unknown
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    alt?: string
+    _type: 'image'
+  }
+  tags?: Array<string>
+  date?: string
 }
 
 export type SanityImagePaletteSwatch = {
@@ -304,6 +345,7 @@ export type AllSanitySchemaTypes =
   | Slug
   | Product
   | PortfolioProject
+  | GalleryImage
   | SanityImagePaletteSwatch
   | SanityImagePalette
   | SanityImageDimensions

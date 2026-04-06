@@ -1,20 +1,37 @@
+/**
+ * Footer component (async server component).
+ *
+ * Renders the site-wide footer with four columns:
+ * 1. Brand — logo word mark + tagline
+ * 2. Quick Links — primary navigation links, rendered via `FooterNavLinks`
+ *    (a client component) so the active page can be highlighted.
+ * 3. Services — first three featured services fetched from Sanity
+ * 4. Contact Info — address, phone, and email
+ *
+ * Featured services are fetched at render time via `sanityFetch` so the footer
+ * stays up to date with the Sanity dataset without a redeploy.
+ */
 import Link from 'next/link';
 import Image from 'next/image';
 import { Mail, Phone, MapPin } from 'lucide-react';
 import logo from '@/public/images/logo.png';
-import { Box, Flex, Heading, Text, AspectRatio, Container, Section, Separator, Card } from '@radix-ui/themes';
-import { sanityClient } from '@/lib/sanity.client';
+import { Box, Flex, Heading, Text, Container, Section } from '@radix-ui/themes';
+import { sanityFetch } from '@/components/sanity/live';
+import FooterNavLinks from '@/components/layout/FooterNavLinks';
+
 import { Service } from '@/sanity.types';
 import { getFeaturedServicesQuery } from '@/lib/sanity.queries';
 
 const Footer = async () => {
-    const featuredServices: Service[] = await sanityClient.fetch(getFeaturedServicesQuery)
+    /** Fetch the first few featured services to populate the Services column. */
+    const { data } = await sanityFetch({ query: getFeaturedServicesQuery })
+    const featuredServices = data as Service[]
 
     return (
         <Section className="px-2 text-[var(--gray-10)]">
             <Container className="pt-10">
-                <Flex justify="between" height="100%" align={{ initial: 'center', sm: 'stretch' }} direction={{ initial: 'column', sm: 'row' }}>
-                    {/* Brand Column */}
+                <Flex px="2" justify="between" height="100%" align={{ initial: 'center', sm: 'stretch' }} direction={{ initial: 'column', sm: 'row' }}>
+                    {/* ── 1. Brand Column ─────────────────────────── */}
                     <Flex flexGrow="2" flexShrink="1" flexBasis="0" direction="column" justify="start" align={{ initial: 'center', sm: 'start' }} gap="2">
                         <Heading color="gray" as="h3" className=" font-novecento-sans">
                             Arizona Fire Features
@@ -24,32 +41,49 @@ const Footer = async () => {
                         </Text>
                     </Flex>
 
-                    {/* Quick Links Column */}
-                    <Flex flexGrow="1" flexShrink="1" flexBasis="0" direction="column" justify="between" align={{ initial: 'center', sm: 'start' }}>
-                        <Heading color="gray" className=" font-novecento-sans p-1 mb-1 mr-1">
+                    {/* ── 2. Quick Links Column ───────────────────── */}
+                    {/*
+                     * FooterNavLinks is a "use client" sub-component so it can
+                     * call usePathname() to highlight the active page link.
+                     */}
+                    <Flex flexGrow="1" flexShrink="1" flexBasis="0" direction="column" align={{ initial: 'center', sm: 'start' }}>
+                        <Heading color="gray" className="font-novecento-sans mb-3">
                             Quick Links
                         </Heading>
-                        <Link className="hover:text-[var(--orange-9)] transition-all duration-200 p-1" href="/">Home</Link>
-                        <Link className="hover:text-[var(--orange-9)] transition-all duration-200 p-1" href="/store">Store</Link>
-                        <Link className="hover:text-[var(--orange-9)] transition-all duration-200 p-1" href="/about">About</Link>
-                        <Link className="hover:text-[var(--orange-9)] transition-all duration-200 p-1" href="/contact">Contact</Link>
+                        <FooterNavLinks />
                     </Flex>
 
-                    {/* Services Column */}
-                    <Flex flexGrow="1" flexShrink="1" flexBasis="0" direction="column" justify="between" align={{ initial: 'center', sm: 'start' }}>
-                        <Heading color="gray" className=" font-novecento-sans p-1 mb-1 mr-1">
+                    {/* ── 3. Services Column (dynamic from Sanity) ── */}
+                    <Flex flexGrow="1" flexShrink="1" flexBasis="0" direction="column" align={{ initial: 'center', sm: 'start' }}>
+                        <Heading color="gray" className="font-novecento-sans mb-3">
                             Services
                         </Heading>
-                        <Link className="hover:text-[var(--orange-9)] transition-all duration-200 p-1" href={`/services/${featuredServices[0]?.slug}`}>{featuredServices[0]?.title}</Link>
-                        <Link className="hover:text-[var(--orange-9)] transition-all duration-200 p-1" href={`/services/${featuredServices[1]?.slug}`}>{featuredServices[1]?.title}</Link>
-                        <Link className="hover:text-[var(--orange-9)] transition-all duration-200 p-1" href={`/services/${featuredServices[2]?.slug}`}>{featuredServices[2]?.title}</Link>
+                        {/* Show up to the first three featured services with dividers */}
+                        <ul className="w-full list-none p-0 m-0">
+                            {featuredServices.slice(0, 3).map((service, index) => (
+                                <li key={service.slug?.current ?? index}>
+                                    {index > 0 && (
+                                        <hr className="border-[var(--gray-5)] my-0" />
+                                    )}
+                                    <Link
+                                        href={`/services/${service.slug?.current}`}
+                                        className="block py-2 text-[var(--gray-10)] hover:text-[var(--orange-9)] transition-colors duration-200"
+                                    >
+                                        {service.title}
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
                     </Flex>
 
-                    {/* Contact Info Column */}
+
+
+                    {/* ── 5. Contact Info Column ───────────────────── */}
                     <Flex flexGrow="1" flexShrink="1" flexBasis="0" direction="column" justify="between" align={{ initial: 'center', sm: 'start' }}>
                         <Heading color="gray" className=" font-novecento-sans p-1 mb-1 mr-1">
                             Contact Info
                         </Heading>
+                        {/* Physical address — links to Google Maps */}
                         <Flex align="center" className="p-1">
                             <MapPin className="text-[var(--orange-9)] mr-2" />
                             <Text>
@@ -58,6 +92,7 @@ const Footer = async () => {
                                 </Link>
                             </Text>
                         </Flex>
+                        {/* Phone number — uses tel: scheme for mobile tap-to-call */}
                         <Flex align="center" className="p-1">
                             <Phone className="text-[var(--orange-9)] mr-2" />
                             <Text>
@@ -66,6 +101,7 @@ const Footer = async () => {
                                 </Link>
                             </Text>
                         </Flex>
+                        {/* Email address */}
                         <Flex align="center" className="p-1">
                             <Mail className="text-[var(--orange-9)] mr-2" />
                             <Text>
@@ -77,6 +113,8 @@ const Footer = async () => {
                     </Flex>
                 </Flex>
             </Container>
+
+            {/* ── Copyright bar ───────────────────────────────────── */}
             <Container>
                 <Flex align="center" justify="center" className="w-full border-t py-2 my-2">
                     <Text>
@@ -84,7 +122,7 @@ const Footer = async () => {
                     </Text>
                 </Flex>
             </Container>
-        </Section >
+        </Section>
     );
 };
 

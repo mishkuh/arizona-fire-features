@@ -3,13 +3,14 @@ import { Button, Box, Section, Container, Heading, Text, Flex } from '@radix-ui/
 import * as motion from 'motion/react-client'
 import AnimatedGrid from '../../../components/ui/AnimatedGrid';
 import ServiceCard from '../../../components/ui/ServiceCard';
-import { sanityClient } from 'lib/sanity.client';
+import { sanityFetch } from '@/components/sanity/live';
 import { getAllServicesQuery } from 'lib/sanity.queries';
 import { urlForImage } from 'lib/sanity.image';
 import { Service } from 'sanity.types';
 
 const Services = async () => {
-    const services: Service[] = await sanityClient.fetch(getAllServicesQuery)
+    const { data } = await sanityFetch({ query: getAllServicesQuery })
+    const services = data as Service[]
     return (
         <Box>
             {/* Hero Section */}
@@ -33,7 +34,7 @@ const Services = async () => {
             <Section size="3">
                 <Container size="4" px="4">
                     <AnimatedGrid>
-                        {services.map((service) => (
+                        {services.map((service: Service) => (
                             <ServiceCard key={service._id} {...{
                                 title: service.title,
                                 description: service.description,
@@ -64,7 +65,7 @@ const Services = async () => {
                             </Text>
                             <Button asChild size="4">
                                 <Link href="/contact">
-                                    Request a Quote
+                                    Contact Us
                                 </Link>
                             </Button>
                         </Flex>

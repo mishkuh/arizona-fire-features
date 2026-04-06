@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     template: '%s | Arizona Fire Features',
   },
   description:
-    'Arizona Fire Features is a family-owned business based in Phoenix, Arizona, specializing in Isokern Fireplaces. Services include consultation, installation, repair and maintenance. Custom fire features for residential properties. With over 20 years of experience, we create unique, handcrafted fire pits, fire tables, and outdoor fireplaces that transform outdoor spaces into stunning gathering areas. Our products are made from durable materials like corten steel, stainless steel, and natural stone, ensuring long-lasting beauty and performance. We serve the entire Phoenix metropolitan area, including Scottsdale, Paradise Valley, Gilbert, Chandler, and Tempe. Contact us today for a free consultation and let us help you create the perfect fire feature for your home or business.',
+    'Arizona Fire Features is a family-owned business based in Phoenix, Arizona, specializing in Isokern Fireplaces. Services include consultation, installation, repair and maintenance. High-end fire features for residential properties. With over 20 years of experience, we create unique, handcrafted fire pits, fire tables, and outdoor fireplaces that transform indoor and outdoor spaces into stunning gathering areas. Our products are made from durable materials, ensuring long-lasting beauty and performance. We serve the entire Phoenix metropolitan area, including Scottsdale, Paradise Valley, Gilbert, Chandler, and Tempe. Contact us today and let us help you create the perfect fire feature for your home or business.',
   keywords: [
     'Arizona Fire Features',
     'Isokern Fireplaces',

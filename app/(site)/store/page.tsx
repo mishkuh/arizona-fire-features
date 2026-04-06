@@ -1,17 +1,49 @@
+/**
+ * Store page (async server component).
+ *
+ * Fetches all product documents from Sanity (featured first, then alphabetically
+ * by name) and passes them to the client-side {@link StoreGrid} component for
+ * category filtering and animated display.
+ *
+ * Page structure:
+ * 1. **Hero** — heading and sub-text explaining the product catalogue
+ * 2. **Product Grid** — filterable, animated product card grid (client component)
+ * 3. **CTA** — "Need Multiple Services?" section with a contact link
+ *
+ * There is no checkout flow — customers phone or email to place orders.
+ *
+ * @remarks The store is temporarily hidden from public access.
+ * Remove the `notFound()` call once the store is ready to go live.
+ */
+import { notFound } from 'next/navigation';
 import { Box, Section, Container, Flex, Heading, Text, Button } from '@radix-ui/themes';
-import { sanityClient } from 'lib/sanity.client';
+import { sanityFetch } from '@/components/sanity/live';
 import { getAllProductsQuery } from 'lib/sanity.queries';
 import { Product } from 'sanity.types';
-import ProductCard from '@/components/ui/ProductCard';
 import * as motion from 'motion/react-client'
 import Link from 'next/link';
-import AnimatedGrid from '@/components/ui/AnimatedGrid';
+import StoreGrid from '@/components/ui/StoreGrid';
 
+/**
+ * Store page component.
+ *
+ * Marked `async` so the Sanity data fetch happens on the server before the
+ * page HTML is streamed to the client.
+ */
 const Store = async () => {
-    const products: Product[] = await sanityClient.fetch(getAllProductsQuery)
+    /**
+     * Temporarily return a 404 while the store is being prepared.
+     * Remove this call when the store is ready to launch.
+     */
+    notFound();
+
+    /** Fetch all products — featured ones are sorted first by the GROQ query. */
+    const { data } = await sanityFetch({ query: getAllProductsQuery })
+    const products = data as Product[]
+
     return (
         <Box>
-            {/* Hero Section */}
+            {/* ── 1. Hero Section ─────────────────────────────── */}
             <Section size="3">
                 <Container size="3">
                     <motion.div
@@ -28,22 +60,15 @@ const Store = async () => {
                     </motion.div>
                 </Container>
             </Section>
+
+            {/* ── 2. Product Grid with Category Filters (client component) ── */}
             <Section size="3" px="4">
-                <AnimatedGrid>
-                    {products.map((product) => (
-                        <ProductCard
-                            name={product.name}
-                            slug={product.slug}
-                            description={product.description}
-                            features={product.features}
-                            coverImage={product.coverImage}
-                            alt={product.coverImage?.alt}
-                            ctaText="Contact for Pricing"
-                        />
-                    ))}
-                </AnimatedGrid>
+                <Container size="4">
+                    <StoreGrid products={products} />
+                </Container>
             </Section>
-            {/* CTA Section */}
+
+            {/* ── 3. CTA Section ──────────────────────────────── */}
             <Section mt="3" size="3">
                 <Container size="4" px="4">
                     <motion.div
@@ -60,7 +85,7 @@ const Store = async () => {
                             </Text>
                             <Button asChild size="4">
                                 <Link href="/contact">
-                                    Request a Quote
+                                    Contact Us
                                 </Link>
                             </Button>
                         </Flex>
