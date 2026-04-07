@@ -14,21 +14,32 @@
  * this component only manages the open/close and prev/next index updates.
  */
 import { useState, useCallback } from 'react'
-import { GalleryImage } from '@/sanity.types'
-import { urlForImage } from '@/lib/sanity.image'
-import GalleryCard from './GalleryCard'
+import GalleryCard, { GalleryCardImage } from './GalleryCard'
 import Lightbox from './Lightbox'
 
-const INITIAL_VISIBLE_COUNT = 8;
+const INITIAL_VISIBLE_COUNT = 6;
 
 interface GalleryGridProps {
-    /** Full list of gallery image documents fetched from Sanity. */
-    images: GalleryImage[]
+    /**
+     * Gallery document fetched from Sanity, or `null` when no gallery
+     * document has been created in the CMS yet.
+     *
+     * Uses `unknown` for the raw Sanity type and casts internally because the
+     * generated `GalleryImages` type reflects unresolved asset references
+     * (`{ _ref, _type }`), while the GROQ query dereferences `asset->` and
+     * returns the full asset document including `metadata.lqip`.
+     */
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    galleryImages: { images?: any[] } | null
 }
 
-const GalleryGrid = ({ images }: GalleryGridProps) => {
-    // Pre-filter valid images to ensure indexes match correctly
-    const validImages = images.filter((img) => img.image ? urlForImage(img.image) !== null : false);
+const GalleryGrid = ({ galleryImages }: GalleryGridProps) => {
+    /**
+     * Cast to `GalleryCardImage[]` because the Sanity-generated type uses
+     * unresolved asset references, but the GROQ query dereferences `asset->`
+     * so the runtime data includes `metadata.lqip` for blur placeholders.
+     */
+    const validImages = (galleryImages?.images ?? []) as GalleryCardImage[];
 
     const [showAll, setShowAll] = useState(false);
 
@@ -88,7 +99,7 @@ const GalleryGrid = ({ images }: GalleryGridProps) => {
             >
                 {(showAll ? validImages : validImages.slice(0, INITIAL_VISIBLE_COUNT)).map((image, index) => (
                     <GalleryCard
-                        key={image._id}
+                        key={index}
                         image={image}
                         index={index}
                         onClick={() => openLightbox(index)}

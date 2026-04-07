@@ -14,7 +14,7 @@ import { Box, Section, Container, Heading, Text, Flex } from '@radix-ui/themes';
 import * as motion from 'motion/react-client'
 import { sanityFetch } from '@/components/sanity/live';
 import { getAllGalleryImagesQuery } from '@/lib/sanity.queries';
-import { GalleryImage } from '@/sanity.types';
+import { GalleryImages } from '@/sanity.types';
 import GalleryGrid from '@/components/ui/GalleryGrid';
 
 /** Next.js metadata for SEO — title and description appear in browser tab and search results. */
@@ -30,9 +30,13 @@ export const metadata = {
  * page HTML is streamed to the client.
  */
 const Gallery = async () => {
-    /** Fetch gallery images — newest first, falling back to _createdAt when no date is set. */
+    /**
+     * The GROQ query returns an array of gallery documents (`*[_type == "gallery"]`).
+     * `data` is the array itself — not an object with a nested key.
+     * We take `[0]` because the gallery is a singleton document in Sanity.
+     */
     const { data } = await sanityFetch({ query: getAllGalleryImagesQuery })
-    const images = data as GalleryImage[]
+    const galleryImages: GalleryImages = data[0] ?? null;
 
     return (
         <Box>
@@ -58,7 +62,7 @@ const Gallery = async () => {
             {/* ── 2. Gallery Grid (client component with lightbox) ── */}
             <Section size="3">
                 <Container size="4" px="4">
-                    <GalleryGrid images={images} />
+                    <GalleryGrid galleryImages={galleryImages} />
                 </Container>
             </Section>
 

@@ -12,12 +12,64 @@
  * ---------------------------------------------------------------------------------
  */
 
+export declare const internalGroqTypeReferenceTo: unique symbol
+
 // Source: schema.json
 export type SanityImageAssetReference = {
   _ref: string
   _type: 'reference'
   _weak?: boolean
   [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
+}
+
+export type SiteSettings = {
+  _id: string
+  _type: 'siteSettings'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  heroCoverImage?: {
+    asset?: SanityImageAssetReference
+    media?: unknown
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    alt?: string
+    _type: 'image'
+  }
+  heroCoverImageBlurUrl?: string
+}
+
+export type SanityImageCrop = {
+  _type: 'sanity.imageCrop'
+  top?: number
+  bottom?: number
+  left?: number
+  right?: number
+}
+
+export type SanityImageHotspot = {
+  _type: 'sanity.imageHotspot'
+  x?: number
+  y?: number
+  height?: number
+  width?: number
+}
+
+export type GalleryImages = {
+  _id: string
+  _type: 'galleryImages'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  title?: string
+  images?: Array<{
+    asset?: SanityImageAssetReference
+    media?: unknown
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    _type: 'image'
+    _key: string
+  }>
 }
 
 export type Service = {
@@ -76,26 +128,17 @@ export type Service = {
   }>
 }
 
-export type SanityImageCrop = {
-  _type: 'sanity.imageCrop'
-  top?: number
-  bottom?: number
-  left?: number
-  right?: number
-}
-
-export type SanityImageHotspot = {
-  _type: 'sanity.imageHotspot'
-  x?: number
-  y?: number
-  height?: number
-  width?: number
-}
-
 export type Slug = {
   _type: 'slug'
   current?: string
   source?: string
+}
+
+export type SanityFileAssetReference = {
+  _ref: string
+  _type: 'reference'
+  _weak?: boolean
+  [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
 }
 
 export type Product = {
@@ -142,26 +185,34 @@ export type Product = {
     _type: 'image'
     _key: string
   }>
-  /** Available sizes shown inline on the product page (e.g. ['28', '36', '42']). */
   availableSizes?: Array<string>
-  /** Resolved CDN URL for the brochure PDF. Projected from brochureFile.asset->url. */
-  brochureUrl?: string
-  /** Resolved CDN URL for the CAD file. Projected from cadFile.asset->url. */
-  cadUrl?: string
-  /** Resolved CDN URL for the specifications PDF. Projected from specificationsFile.asset->url. */
-  specificationsUrl?: string
+  brochureFile?: {
+    asset?: SanityFileAssetReference
+    media?: unknown
+    _type: 'file'
+  }
+  cadFile?: {
+    asset?: SanityFileAssetReference
+    media?: unknown
+    _type: 'file'
+  }
+  specificationsFile?: {
+    asset?: SanityFileAssetReference
+    media?: unknown
+    _type: 'file'
+  }
   ctaText?: string
-  /** Whether this product is pinned to the top of the store listing. */
   isFeatured?: boolean
-  /** Product category slug (e.g. 'fire_pits'). */
-  category?: string
-  /** Internal stock-keeping unit identifier. */
+  category?:
+    | 'fire_pits'
+    | 'fire_tables'
+    | 'fire_bowls'
+    | 'burners'
+    | 'accessories'
+    | 'other'
   sku?: string
-  /** Starting price in USD. Null/undefined means "Contact for Pricing". */
   price?: number
-  /** Customer-facing availability status. */
   availability?: 'in_stock' | 'call_for_availability' | 'out_of_stock'
-  /** Internal stock count — not displayed to customers. */
   stockCount?: number
 }
 
@@ -217,48 +268,6 @@ export type PortfolioProject = {
     _type: 'image'
     _key: string
   }>
-}
-
-export type GalleryImage = {
-  _id: string
-  _type: 'galleryImage'
-  _createdAt: string
-  _updatedAt: string
-  _rev: string
-  title?: string
-  caption?: string
-  contactInfo?: string
-  image?: {
-    asset?: SanityImageAssetReference
-    media?: unknown
-    hotspot?: SanityImageHotspot
-    crop?: SanityImageCrop
-    alt?: string
-    _type: 'image'
-  }
-  tags?: Array<string>
-  date?: string
-}
-
-export type SiteSettings = {
-  _id: string
-  _type: 'siteSettings'
-  _createdAt: string
-  _updatedAt: string
-  _rev: string
-  /** Full-bleed background photograph for the homepage hero section. */
-  heroCoverImage?: {
-    asset?: SanityImageAssetReference
-    hotspot?: SanityImageHotspot
-    crop?: SanityImageCrop
-    alt?: string
-    _type: 'image'
-  }
-  /**
-   * Optional base-64 LQIP data URL (or external URL) used as a low-quality
-   * blur placeholder while the hero image loads.
-   */
-  heroCoverImageBlurUrl?: string
 }
 
 export type SanityImagePaletteSwatch = {
@@ -360,14 +369,15 @@ export type Geopoint = {
 
 export type AllSanitySchemaTypes =
   | SanityImageAssetReference
-  | Service
+  | SiteSettings
   | SanityImageCrop
   | SanityImageHotspot
+  | GalleryImages
+  | Service
   | Slug
+  | SanityFileAssetReference
   | Product
   | PortfolioProject
-  | GalleryImage
-  | SiteSettings
   | SanityImagePaletteSwatch
   | SanityImagePalette
   | SanityImageDimensions
@@ -376,5 +386,3 @@ export type AllSanitySchemaTypes =
   | SanityAssetSourceData
   | SanityImageAsset
   | Geopoint
-
-export declare const internalGroqTypeReferenceTo: unique symbol

@@ -236,14 +236,20 @@ export const settingsQuery = groq`
  * falling back to creation date when no date is set.
  */
 export const getAllGalleryImagesQuery = groq`
-  *[_type == "galleryImage"] | order(date desc, _createdAt desc) {
+  *[_type == "gallery"] {
     _id,
     title,
-    caption,
-    contactInfo,
-    tags,
-    date,
-    image,
+    images[]{
+      asset->{
+        _id,
+        url,
+        metadata {
+          lqip,
+          dimensions
+        }
+      },
+      hotspot
+    }
   }
 `
 
