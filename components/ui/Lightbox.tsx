@@ -15,16 +15,16 @@
  * Prev/Next buttons are only rendered when there is more than one image in
  * the gallery.
  */
-import { useEffect, useCallback } from 'react'
+import { useEffect, useCallback, useState } from 'react'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'motion/react'
 import { X, ChevronLeft, ChevronRight } from 'lucide-react'
-import { GalleryImage } from '@/sanity.types'
 import { urlForImage } from '@/lib/sanity.image'
+import { GalleryCardImage } from './GalleryCard'
 
 interface LightboxProps {
     /** The full gallery image array (needed for navigation and the counter). */
-    images: GalleryImage[]
+    images: GalleryCardImage[]
     /** Zero-based index of the image currently displayed. */
     currentIndex: number
     /** Callback to close the lightbox. */
@@ -39,8 +39,20 @@ const Lightbox = ({ images, currentIndex, onClose, onPrev, onNext }: LightboxPro
     /** The currently displayed gallery image document. */
     const current = images[currentIndex]
 
-    /** Resolved CDN URL for the current image. */
-    const imageUrl = urlForImage(current?.image)
+    /** Whether the full-resolution lightbox image has finished loading. */
+    const [isLoaded, setIsLoaded] = useState(false)
+
+    /** Reset loaded state whenever the active image changes. */
+    useEffect(() => { setIsLoaded(false) }, [currentIndex])
+
+    /**
+     * Resolved CDN URL for the current image.
+     * `current` is the plain Sanity image object — no nested `.image` property.
+     */
+    const imageUrl = urlForImage(current)
+
+    /** LQIP base64 string from Sanity — used as the blur placeholder. */
+    const lqip = current?.asset?.metadata?.lqip
 
     // ─── Keyboard Navigation ──────────────────────────────────────────────────
 
@@ -139,52 +151,26 @@ const Lightbox = ({ images, currentIndex, onClose, onPrev, onNext }: LightboxPro
                         overflow: 'hidden',
                         aspectRatio: '16 / 10',
                     }}>
+                        {/* Shimmer skeleton — fades out once the image loads */}
+                        <div
+                            className="gallery-skeleton"
+                            style={{ opacity: isLoaded ? 0 : 1, borderRadius: '10px' }}
+                            aria-hidden="true"
+                        />
                         <Image
                             src={imageUrl}
-                            alt={current.image?.alt || current.title || ''}
+                            alt={`Gallery image ${currentIndex + 1}`}
                             fill
                             sizes="90vw"
                             className="object-contain"
+                            style={{ zIndex: 2 }}
+                            /** Use the LQIP as a blur placeholder when available. */
+                            placeholder={lqip ? 'blur' : 'empty'}
+                            blurDataURL={lqip}
                             /** `priority` prevents a layout shift on the first load. */
                             priority
+                            onLoad={() => setIsLoaded(true)}
                         />
-                    </div>
-
-                    {/* Caption area */}
-                    <div style={{
-                        textAlign: 'center',
-                        padding: '0 48px',
-                        maxWidth: '680px',
-                    }}>
-                        {current.title && (
-                            <p style={{
-                                color: 'white',
-                                fontWeight: 600,
-                                fontSize: '1rem',
-                                margin: '0 0 4px',
-                            }}>
-                                {current.title}
-                            </p>
-                        )}
-                        {current.caption && (
-                            <p style={{
-                                color: '#aaa',
-                                fontSize: '0.85rem',
-                                margin: '0 0 4px',
-                            }}>
-                                {current.caption}
-                            </p>
-                        )}
-                        {current.contactInfo && (
-                            <p style={{
-                                color: 'var(--orange-9)',
-                                fontSize: '0.8rem',
-                                fontWeight: 500,
-                                margin: 0,
-                            }}>
-                                {current.contactInfo}
-                            </p>
-                        )}
                     </div>
 
                     {/* "X / N" image counter */}

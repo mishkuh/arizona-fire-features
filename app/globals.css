@@ -191,3 +191,34 @@
     /* Your custom font for <Quote> components */
     /* --quote-font-family: var(--font-zalando); */
 }
+
+/* ── Gallery image loading skeleton ───────────────────────────────────────── */
+
+/**
+ * Shimmer animation — a bright gradient sweeps left-to-right over the
+ * skeleton background to indicate that content is loading.
+ */
+@keyframes gallery-shimmer {
+    0%   { background-position: -200% 0; }
+    100% { background-position:  200% 0; }
+}
+
+/**
+ * Skeleton placeholder rendered beneath each gallery image while it loads.
+ * Faded out via opacity transition once the image fires its onLoad callback.
+ */
+.gallery-skeleton {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        90deg,
+        var(--gray-3) 25%,
+        var(--gray-4) 50%,
+        var(--gray-3) 75%
+    );
+    background-size: 200% 100%;
+    animation: gallery-shimmer 1.6s ease-in-out infinite;
+    transition: opacity 0.4s ease;
+    border-radius: inherit;
+    z-index: 1;
+}
