@@ -37,7 +37,7 @@ export default function FooterNavLinks() {
             {NAV_ITEMS.map(({ href, label }, index) => (
                 <Flex direction="column" width="100%" align={{ initial: 'center', sm: 'start' }} key={href}>
                     {index > 0 && <Separator size="4" color="gray" />}
-                    <Text className="w-full py-2 block text-[var(--gray-10)] hover:text-[var(--orange-9)] transition-colors duration-200">
+                    <Text className="w-full py-2 text-[var(--gray-10)] hover:text-[var(--orange-9)] transition-colors duration-200">
                         <Link href={href}>
                             {pathname === href &&
                                 <Text> &gt; </Text>
