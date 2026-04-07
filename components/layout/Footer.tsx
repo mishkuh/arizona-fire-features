@@ -26,7 +26,7 @@ const Footer = async () => {
     const featuredServices = data as Service[]
 
     return (
-        <Section className="px-2 text-[var(--gray-10)]">
+        <Section className="px-2 text-[var(--gray-10)] bg-[#0d0d0d]">
             <Container className="pt-10">
                 <Flex gap="4" justify="between" height="100%" align={{ initial: 'center', sm: 'stretch' }} direction={{ initial: 'column', sm: 'row' }}>
                     {/* ── 1. Brand Column ─────────────────────────── */}
