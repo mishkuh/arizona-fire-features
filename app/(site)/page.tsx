@@ -9,6 +9,8 @@ import { Service, SiteSettings } from 'sanity.types';
 import { getFeaturedServicesQuery, getSiteSettingsQuery } from '@/lib/sanity.queries';
 import { sanityFetch } from '@/components/sanity/live'
 
+const yearsInBusiness = new Date().getFullYear() - 2014;
+
 const Home = async () => {
     const { data: featuredServices } = await sanityFetch({ query: getFeaturedServicesQuery })
     const { data: siteSettings } = await sanityFetch({ query: getSiteSettingsQuery })
@@ -26,10 +28,16 @@ const Home = async () => {
     const heroAlt: string =
         (settings?.heroCoverImage?.alt) ?? 'Arizona Fire Features hero image'
 
+    /**
+     * Optional base-64 LQIP or external URL used as the `blurDataURL` prop
+     * for the hero image. Falls back to empty string (no placeholder).
+     */
+    const heroBlurUrl: string = settings?.heroCoverImageBlurUrl ?? ''
+
     const benefitsList = [
         'Isokern Fireplace Specialists',
         'Licensed, Bonded & Insured',
-        '20+ Years Experience',
+        `${yearsInBusiness}+ Years Experience`,
         'Competitive Pricing',
         'ROC#290918',
         'Commitment to Quality'
@@ -38,7 +46,7 @@ const Home = async () => {
     return (
         <Box>
             {/* Hero Section with Animated Background */}
-            <SectionWithBackground imageUrl={heroImageUrl} alt={heroAlt} blurDataURL=''>
+            <SectionWithBackground imageUrl={heroImageUrl} alt={heroAlt} blurDataURL={heroBlurUrl}>
                 {/* Hero Content */}
                 <Card size={{ initial: "1", sm: "2" }} className='max-w-[900px] absolute mx-10 items-center justify-center bg-black/40'>
                     <Flex m="8px" p={{ initial: "2", md: "8" }} gap="4" direction="column" justify="center">

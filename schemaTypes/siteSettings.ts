@@ -4,6 +4,11 @@
  * A singleton document (one per dataset) that holds global site-wide
  * configuration such as the hero cover image shown on the home page.
  *
+ * Fields:
+ *  - heroCoverImage         – Full-bleed background photo for the hero section.
+ *  - heroCoverImageBlurUrl  – Optional base64 LQIP / external URL used as the
+ *                             `blurDataURL` placeholder while the hero image loads.
+ *
  * Only a single document of this type should ever be created; the Studio
  * structure can be configured to enforce this, but for now a runtime
  * `*[_type == "siteSettings"][0]` query is used on the front-end.
@@ -32,6 +37,17 @@ export default defineType({
                         'A short description of the image for screen-readers and SEO (e.g. "Outdoor fireplace at sunset").',
                 }),
             ],
+        }),
+
+        // ─── Blur Placeholder ───────────────────────────────────────────────────
+        defineField({
+            name: 'heroCoverImageBlurUrl',
+            title: 'Hero Cover Image Blur URL',
+            type: 'string',
+            description:
+                'Optional base-64 LQIP data URL (or external URL) used as a low-quality ' +
+                'blur placeholder while the hero image loads. ' +
+                'Leave blank to show no placeholder.',
         }),
     ],
 

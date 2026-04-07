@@ -269,5 +269,6 @@ export const getSiteSettingsQuery = groq`
       hotspot,
       crop,
     },
+    heroCoverImageBlurUrl,
   }
 `
