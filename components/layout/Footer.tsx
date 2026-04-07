@@ -12,10 +12,8 @@
  * stays up to date with the Sanity dataset without a redeploy.
  */
 import Link from 'next/link';
-import Image from 'next/image';
 import { Mail, Phone, MapPin } from 'lucide-react';
-import logo from '@/public/images/logo.png';
-import { Box, Flex, Heading, Text, Container, Section } from '@radix-ui/themes';
+import { Flex, Heading, Text, Container, Section, Separator } from '@radix-ui/themes';
 import { sanityFetch } from '@/components/sanity/live';
 import FooterNavLinks from '@/components/layout/FooterNavLinks';
 
@@ -30,13 +28,13 @@ const Footer = async () => {
     return (
         <Section className="px-2 text-[var(--gray-10)]">
             <Container className="pt-10">
-                <Flex px="2" justify="between" height="100%" align={{ initial: 'center', sm: 'stretch' }} direction={{ initial: 'column', sm: 'row' }}>
+                <Flex gap="4" justify="between" height="100%" align={{ initial: 'center', sm: 'stretch' }} direction={{ initial: 'column', sm: 'row' }}>
                     {/* ── 1. Brand Column ─────────────────────────── */}
-                    <Flex flexGrow="2" flexShrink="1" flexBasis="0" direction="column" justify="start" align={{ initial: 'center', sm: 'start' }} gap="2">
+                    <Flex flexGrow="1" flexShrink="1" flexBasis="0" direction="column" justify="start" align={{ initial: 'center', sm: 'start' }} gap="2">
                         <Heading color="gray" as="h3" className=" font-novecento-sans">
                             Arizona Fire Features
                         </Heading>
-                        <Text wrap="balance" as="p">
+                        <Text wrap="balance" as="p" align={{ initial: 'center', sm: 'left' }}>
                             Expertly crafting custom fire features and outdoor living spaces that bring warmth, elegance, and ambiance to your Arizona home.
                         </Text>
                     </Flex>
@@ -59,26 +57,19 @@ const Footer = async () => {
                             Services
                         </Heading>
                         {/* Show up to the first three featured services with dividers */}
-                        <ul className="w-full list-none p-0 m-0">
+                        <Flex direction="column" align="center" justify="center">
                             {featuredServices.slice(0, 3).map((service, index) => (
-                                <li key={service.slug?.current ?? index}>
-                                    {index > 0 && (
-                                        <hr className="border-[var(--gray-5)] my-0" />
-                                    )}
-                                    <Link
-                                        href={`/services/${service.slug?.current}`}
-                                        className="block py-2 text-[var(--gray-10)] hover:text-[var(--orange-9)] transition-colors duration-200"
-                                    >
+                                <Flex direction="column" key={index} width="100%">
+                                    {index > 0 && <Separator size="4" color="gray" />}
+                                    <Link href={`/services/${service.slug}`} className="py-2 text-[var(--gray-10)] hover:text-[var(--orange-9)] transition-colors duration-200">
                                         {service.title}
                                     </Link>
-                                </li>
+                                </Flex>
                             ))}
-                        </ul>
+                        </Flex>
                     </Flex>
 
-
-
-                    {/* ── 5. Contact Info Column ───────────────────── */}
+                    {/* ── 4. Contact Info Column ───────────────────── */}
                     <Flex flexGrow="1" flexShrink="1" flexBasis="0" direction="column" justify="between" align={{ initial: 'center', sm: 'start' }}>
                         <Heading color="gray" className=" font-novecento-sans p-1 mb-1 mr-1">
                             Contact Info
