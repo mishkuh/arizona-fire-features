@@ -5,14 +5,26 @@ import { Button, Flex, Box, Heading, Text, Grid, Container, Section, Em, Card } 
 import AnimatedGrid from '../../components/ui/AnimatedGrid';
 import SectionWithBackground from '../../components/sections/SectionWithBackground';
 import ServiceCard from '../../components/ui/ServiceCard';
-import { Service } from 'sanity.types';
-import heroImage from '@/public/images/fireplace.webp'
-import { getFeaturedServicesQuery } from '@/lib/sanity.queries';
+import { Service, SiteSettings } from 'sanity.types';
+import { getFeaturedServicesQuery, getSiteSettingsQuery } from '@/lib/sanity.queries';
 import { sanityFetch } from '@/components/sanity/live'
 
 const Home = async () => {
     const { data: featuredServices } = await sanityFetch({ query: getFeaturedServicesQuery })
+    const { data: siteSettings } = await sanityFetch({ query: getSiteSettingsQuery })
     const services = featuredServices as Service[]
+    const settings = siteSettings as SiteSettings | null
+
+    /**
+     * Use the Sanity-managed hero image URL when available;
+     * fall back to the static local file so the page always renders.
+     */
+    const heroImageUrl: string =
+        (settings?.heroCoverImage as { asset?: { url?: string } } | undefined)?.asset?.url
+        ?? ''
+
+    const heroAlt: string =
+        (settings?.heroCoverImage?.alt) ?? 'Arizona Fire Features hero image'
 
     const benefitsList = [
         'Isokern Fireplace Specialists',
@@ -26,9 +38,9 @@ const Home = async () => {
     return (
         <Box>
             {/* Hero Section with Animated Background */}
-            <SectionWithBackground imageUrl={heroImage.src} alt="alt" blurDataURL=''>
+            <SectionWithBackground imageUrl={heroImageUrl} alt={heroAlt} blurDataURL=''>
                 {/* Hero Content */}
-                <Card size={{ initial: "1", sm: "2" }} className='max-w-[900px] absolute mx-10 items-center justify-center'>
+                <Card size={{ initial: "1", sm: "2" }} className='max-w-[900px] absolute mx-10 items-center justify-center bg-black/40'>
                     <Flex m="8px" p={{ initial: "2", md: "8" }} gap="4" direction="column" justify="center">
                         <Heading
                             asChild

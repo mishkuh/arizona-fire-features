@@ -76,7 +76,7 @@ Business website for **Arizona Fire Features**, a family-owned fire feature inst
 
 | Route | Type | Data Source | Status |
 |---|---|---|---|
-| `/` | Server Component | Sanity (`getFeaturedServicesQuery`) | ✅ Live |
+| `/` | Server Component | Sanity (`getFeaturedServicesQuery`, `getSiteSettingsQuery`) | ✅ Live |
 | `/about` | Server Component | Hardcoded | ✅ Live |
 | `/services` | Server Component | Sanity (`getAllServicesQuery`) | ✅ Live |
 | `/services/[slug]` | Server Component | Sanity (`getServiceBySlugQuery`) | ✅ Live |
@@ -189,7 +189,8 @@ arizona-fire-features/
 │   ├── service.ts
 │   ├── product.ts           # Product + inventory fields
 │   ├── portfolioProject.ts
-│   └── galleryImage.ts
+│   ├── galleryImage.ts
+│   └── siteSettings.ts      # Singleton: global settings (hero image, etc.)
 │
 ├── public/images/           # Static assets (logo, hero image)
 ├── sanity.config.ts         # Sanity Studio configuration
@@ -295,6 +296,7 @@ The product detail page uses a three-section layout (no full-width hero banner):
 | `getAllProductsQuery` | All products for the store listing (featured first) |
 | `getFeaturedProductsQuery` | Featured products only (for homepage/hero use) |
 | `getProductBySlugQuery` | Single product for the detail page |
+| `getSiteSettingsQuery` | Singleton site settings inc. hero cover image |
 
 ---
 
@@ -393,4 +395,4 @@ Stripe Webhook fires → POST /api/stripe/webhook
 
 ---
 
-*Last updated: February 2026*
+*Last updated: April 2026*

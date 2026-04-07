@@ -246,3 +246,28 @@ export const getAllGalleryImagesQuery = groq`
     image,
   }
 `
+
+// ─── Site Settings ────────────────────────────────────────────────────────────
+
+/**
+ * Fetches the singleton siteSettings document.
+ * Includes the hero cover image used on the home page as a full-bleed
+ * background, with its resolved asset URL, blur hash for placeholder
+ * rendering, and custom alt text.
+ */
+export const getSiteSettingsQuery = groq`
+  *[_type == "siteSettings"][0] {
+    heroCoverImage {
+      asset-> {
+        url,
+        metadata {
+          lqip,
+          dimensions,
+        },
+      },
+      alt,
+      hotspot,
+      crop,
+    },
+  }
+`

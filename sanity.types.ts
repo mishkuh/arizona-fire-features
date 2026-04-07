@@ -240,6 +240,22 @@ export type GalleryImage = {
   date?: string
 }
 
+export type SiteSettings = {
+  _id: string
+  _type: 'siteSettings'
+  _createdAt: string
+  _updatedAt: string
+  _rev: string
+  /** Full-bleed background photograph for the homepage hero section. */
+  heroCoverImage?: {
+    asset?: SanityImageAssetReference
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    alt?: string
+    _type: 'image'
+  }
+}
+
 export type SanityImagePaletteSwatch = {
   _type: 'sanity.imagePaletteSwatch'
   background?: string
@@ -346,6 +362,7 @@ export type AllSanitySchemaTypes =
   | Product
   | PortfolioProject
   | GalleryImage
+  | SiteSettings
   | SanityImagePaletteSwatch
   | SanityImagePalette
   | SanityImageDimensions
