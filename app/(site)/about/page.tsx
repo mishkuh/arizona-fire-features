@@ -4,6 +4,8 @@ import { Award, Users, User, Flame, Heart } from 'lucide-react';
 import Image from 'next/image';
 import { Box, Container, Section, Grid, Flex, Heading, Text, Card, Avatar } from '@radix-ui/themes';
 
+const yearsInBusiness = new Date().getFullYear() - 2014;
+
 const About = () => {
     const values = [
         {
@@ -59,7 +61,7 @@ const About = () => {
                         <Flex direction="column" align="center" className="text-center  max-w-3xl mx-auto">
                             <Heading size="8" mb="6" className="font-novecento-sans ">About Arizona Fire Features</Heading>
                             <Text color="gray" size="5" className="block">
-                                Crafting custom fireplaces and premium fire features for over 20 years.
+                                Crafting custom fireplaces and premium fire features since 2014.
                             </Text>
                         </Flex>
                     </motion.div>
@@ -200,7 +202,7 @@ const About = () => {
                 <Container size="4" px="4">
                     <Grid columns={{ initial: '2', md: '4' }} gap="8" className="max-w-4xl mx-auto">
                         {[
-                            { number: '20+', label: 'Years Experience' },
+                            { number: `${yearsInBusiness}+`, label: 'Years Experience' },
                             { number: '500+', label: 'Projects Completed' },
                             { number: '200+', label: 'Happy Clients' },
                             { number: '10+', label: 'Team Members' }

@@ -8,6 +8,7 @@ import { SanityLive } from "@/components/sanity/live";
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 
+const yearsInBusiness = new Date().getFullYear() - 2014;
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://arizonafirefeatures.com'),
@@ -18,7 +19,7 @@ export const metadata: Metadata = {
     template: '%s | Arizona Fire Features',
   },
   description:
-    'Arizona Fire Features is a family-owned business based in Phoenix, Arizona, specializing in Isokern Fireplaces. Services include consultation, installation, repair and maintenance. High-end fire features for residential properties. With over 20 years of experience, we create unique, handcrafted fire pits, fire tables, and outdoor fireplaces that transform indoor and outdoor spaces into stunning gathering areas. Our products are made from durable materials, ensuring long-lasting beauty and performance. We serve the entire Phoenix metropolitan area, including Scottsdale, Paradise Valley, Gilbert, Chandler, and Tempe. Contact us today and let us help you create the perfect fire feature for your home or business.',
+    `Arizona Fire Features is a family-owned business based in Phoenix, Arizona, specializing in Isokern Fireplaces. Services include consultation, installation, repair and maintenance. High-end fire features for residential properties. With over ${yearsInBusiness}+ years of experience, we create unique, handcrafted fire pits, fire tables, and outdoor fireplaces that transform indoor and outdoor spaces into stunning gathering areas. Our products are made from durable materials, ensuring long-lasting beauty and performance. We serve the entire Phoenix metropolitan area, including Scottsdale, Paradise Valley, Gilbert, Chandler, and Tempe. Contact us today and let us help you create the perfect fire feature for your home or business.`,
   keywords: [
     'Arizona Fire Features',
     'Isokern Fireplaces',
@@ -68,7 +69,7 @@ export const metadata: Metadata = {
     siteName: 'Arizona Fire Features',
     title: 'Arizona Fire Features | Custom Fire Pits, Tables & Fireplaces',
     description:
-      'Family-owned in Phoenix, AZ. We design, fabricate, and install handcrafted fire pits, fire tables, and outdoor fireplaces for the Phoenix metro area. 20+ years of experience.',
+      `Family-owned in Phoenix, AZ. We design, fabricate, and install handcrafted fire pits, fire tables, and outdoor fireplaces for the Phoenix metro area. ${yearsInBusiness}+ years of experience.`,
   },
 
   // ─── Icons ──────────────────────────────────────────────────────────────────

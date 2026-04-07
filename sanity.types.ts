@@ -254,6 +254,11 @@ export type SiteSettings = {
     alt?: string
     _type: 'image'
   }
+  /**
+   * Optional base-64 LQIP data URL (or external URL) used as a low-quality
+   * blur placeholder while the hero image loads.
+   */
+  heroCoverImageBlurUrl?: string
 }
 
 export type SanityImagePaletteSwatch = {

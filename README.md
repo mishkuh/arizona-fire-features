@@ -190,7 +190,7 @@ arizona-fire-features/
 │   ├── product.ts           # Product + inventory fields
 │   ├── portfolioProject.ts
 │   ├── galleryImage.ts
-│   └── siteSettings.ts      # Singleton: global settings (hero image, etc.)
+│   └── siteSettings.ts      # Singleton: global settings (hero image, blur URL, etc.)
 │
 ├── public/images/           # Static assets (logo, hero image)
 ├── sanity.config.ts         # Sanity Studio configuration
@@ -296,7 +296,7 @@ The product detail page uses a three-section layout (no full-width hero banner):
 | `getAllProductsQuery` | All products for the store listing (featured first) |
 | `getFeaturedProductsQuery` | Featured products only (for homepage/hero use) |
 | `getProductBySlugQuery` | Single product for the detail page |
-| `getSiteSettingsQuery` | Singleton site settings inc. hero cover image |
+| `getSiteSettingsQuery` | Singleton site settings inc. hero cover image and blur URL |
 
 ---
 
