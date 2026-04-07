@@ -5,6 +5,8 @@ import { VisualEditing } from "next-sanity/visual-editing";
 import { draftMode } from "next/headers";
 import { DisableDraftMode } from "@/components/sanity/DisableDraftMode";
 import { SanityLive } from "@/components/sanity/live";
+import { Analytics } from "@vercel/analytics/next"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 
 export const metadata: Metadata = {
@@ -97,6 +99,8 @@ export default async function RootLayout({
     <html lang="en">
       <body>
         {children}
+        <Analytics />
+        <SpeedInsights />
         <SanityLive />
         {(await draftMode()).isEnabled && (
           <>
